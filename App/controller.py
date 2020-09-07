@@ -37,10 +37,38 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+def initCatalog():
+    catalog = model.newCatalog()
+    return catalog
 
-
-
-# ___________________________________________________
+# __________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+
+def loadData(catalog, file1, file2):
+    """
+    Carga los datos de los archivos en el modelo
+    """
+    loadMovies(catalog, file1)
+    loadMoviesCasting(catalog, file2)
+
+
+def loadMovies(catalog, file1):
+    file1 = cf.data_dir + file1
+    input_file = csv.DictReader(open(file1, encoding= 'utf-8-sig'))
+    for book in input_file:
+        model.addBook(catalog, book)
+        authors = book['authors'].split(",")  # Se obtienen los autores
+        for author in authors:
+            model.addBookAuthor(catalog, author.strip(), book)
+
+
+
+def loadMoviesCasting(catalog, file2):
+    file2 = cf.data_dir + file2
+    input_file = csv.DictReader(open(file2))
+    for tag in input_file:
+        model.addBookTag(catalog, tag)
+
