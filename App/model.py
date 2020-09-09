@@ -35,6 +35,38 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
+def newCatalog():
+     """
+    Carga un archivo csv a una lista
+    Args:
+        file
+            Archivo csv del cual se importaran los datos
+        sep = ";"
+            Separador utilizado para determinar cada objeto dentro del archivo
+        Try:
+        Intenta cargar el archivo CSV a la lista que se le pasa por parametro,
+        si encuentra algun error
+        Borra la lista e informa al usuario
+    Returns: None  
+    """
+    catalog = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    #catalog = lt.newList() #Usando implementacion linkedlist
+    print("Cargando archivos ....")
+    t1_start = process_time() #tiempo inicial
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file1, encoding="utf-8") as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                lt.addLast(catalog,row)
+
+    except:
+        print("Hubo un error con la carga de los archivos")
+
+    t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    return catalog
 
 
 # Funciones para agregar informacion al catalogo
@@ -45,6 +77,29 @@ es decir contiene los modelos con los datos en memoria
 # Funciones de consulta
 # ==============================
 
+def descubrirProductoras(catalog, productora):
+
+    pass
+
+
+def conocerDirector(catalog, director):
+
+    pass
+
+
+def conocerActor(catalog, actor):
+
+    pass
+
+
+def entenderGenero(catalog, genero):
+
+    pass
+
+
+def datosDirector(catalog, director):
+
+    pass
 
 
 # ==============================

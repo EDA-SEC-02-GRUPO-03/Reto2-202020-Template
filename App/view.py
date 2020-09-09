@@ -39,11 +39,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
-
-
 # ___________________________________________________
-#  Funciones para imprimir la inforamación de
+#  Funciones para imprimir la información de
 #  respuesta.  La vista solo interactua con
 #  el controlador.
 # ___________________________________________________
@@ -53,3 +50,18 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    """
+    Imprime el menu de opciones
+    """
+    print("\nBienvenido a: Explorando GoodReads ")
+    print("-"*35)
+    print('1- Cargar Datos')
+    print("2- Descubrir productoras de cine")
+    print("3- Conocer a un director")
+    print("4- Conocer un actor")
+    print("5- Entender un género cinematográfico")
+    print("6- Encontrar películas por país")
+    print("7- Mostrar datos por director")
+    print("0- Salir")
