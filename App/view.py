@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+import csv
 import sys
 import config
 from DISClib.ADT import list as lt
@@ -78,7 +78,9 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         file = '../Data/GoodReads/books-small.csv'
-        catalog = controller.initCatalog(file)
+        catalog = controller.initCatalog('../Data/details.csv', '../Data/details.csv')
+        controller.infoCatalog(catalog)
+
 
     elif int(inputs[0]) == 2:
         productora = input('Productora que se quiere ver: ')

@@ -37,14 +37,16 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
-def initCatalog():
+def initCatalog(file1, file2):
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = model.newCatalog(file1)
+    catalog = model.newCatalog(file1, file2)
     return catalog
 
+def infoCatalog(catalog):
+    return model.infoCatalog(catalog)
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
