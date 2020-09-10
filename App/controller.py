@@ -42,7 +42,7 @@ def initCatalog():
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = model.newCatalog()
+    catalog = model.newCatalog(file1)
     return catalog
 
 
@@ -50,3 +50,32 @@ def initCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+def descubrirProductoras(catalog, productora):
+
+    return model.descubrirProductoras(catalog, productora)
+
+
+def conocerDirector(catalog, director):
+
+    return model.conocerDirector(catalog, director)
+
+
+def conocerActor(catalog, actor):
+
+    return model.conocerActor(catalog, actor)
+
+
+def entenderGenero(catalog, genero):
+
+    return model.entenderGenero(catalog, genero)
+
+
+def peliculasPais(catalog, pais):
+
+    return model.peliculasPais(catalog, pais)
+
+
+def datosDirector(catalog, director):
+
+    return model.datosDirector(catalog, director)

@@ -35,7 +35,7 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def newCatalog():
+def newCatalog(file1, sep=";"):
      """
     Carga un archivo csv a una lista
     Args:
@@ -97,6 +97,11 @@ def entenderGenero(catalog, genero):
     pass
 
 
+def peliculasPais(catalog, pais):
+
+    pass
+
+
 def datosDirector(catalog, director):
 
     pass
@@ -105,5 +110,6 @@ def datosDirector(catalog, director):
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
 
 
