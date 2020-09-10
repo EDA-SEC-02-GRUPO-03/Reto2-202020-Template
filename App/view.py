@@ -38,12 +38,9 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
-
-
-
+# 
 # ___________________________________________________
-#  Funciones para imprimir la inforamación de
+#  Funciones para imprimir la información de
 #  respuesta.  La vista solo interactua con
 #  el controlador.
 # ___________________________________________________
@@ -53,3 +50,40 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+# def printMenu():
+#     pass
+
+# def main():
+#     """
+#     Método principal del programa, se encarga de manejar todos los metodos
+#     adicionales creados
+
+#     Instancia una lista vacia en la cual se guardarán los datos cargados desde
+#     el archivo
+#     Args: None
+#     Return: None 
+#     """
+#     lista1 = lt.newList()   # se require usar lista definida
+#     lista2 = lt.newList()   # se require usar lista definida
+#     while True:
+#         printMenu() #imprimir el menu de opciones en consola
+#         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
+#         if len(inputs)>0:
+#             if int(inputs[0])==1: #opcion 1
+#                 pass
+#             elif int(inputs[0])==2: #opcion 2
+#                 pass
+#             elif int(inputs[0])==3: #opcion 3
+#                 pass
+#             elif int(inputs[0])==4: #opcion 4
+#                 pass
+#             elif int(inputs[0])==5: #opcion 5
+#                 pass
+#             elif int(inputs[0])==6: #opcion 6
+#                 pass
+#             elif int(inputs[0])==0: #opcion 0, salir
+#                 sys.exit(0)
+                
+# if __name__ == "__main__":
+#     main()
