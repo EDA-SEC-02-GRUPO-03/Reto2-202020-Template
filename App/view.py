@@ -50,43 +50,6 @@ operación seleccionada.
 #  Menu principal
 # ___________________________________________________
 
-# def printMenu():
-#     pass
-
-# def main():
-#     """
-#     Método principal del programa, se encarga de manejar todos los metodos
-#     adicionales creados
-
-#     Instancia una lista vacia en la cual se guardarán los datos cargados desde
-#     el archivo
-#     Args: None
-#     Return: None 
-#     """
-#     lista1 = lt.newList()   # se require usar lista definida
-#     lista2 = lt.newList()   # se require usar lista definida
-#     while True:
-#         printMenu() #imprimir el menu de opciones en consola
-#         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
-#         if len(inputs)>0:
-#             if int(inputs[0])==1: #opcion 1
-#                 pass
-#             elif int(inputs[0])==2: #opcion 2
-#                 pass
-#             elif int(inputs[0])==3: #opcion 3
-#                 pass
-#             elif int(inputs[0])==4: #opcion 4
-#                 pass
-#             elif int(inputs[0])==5: #opcion 5
-#                 pass
-#             elif int(inputs[0])==6: #opcion 6
-#                 pass
-#             elif int(inputs[0])==0: #opcion 0, salir
-#                 sys.exit(0)
-                
-# if __name__ == "__main__":
-#     main()
-
 def printMenu():
     """
     Imprime el menu de opciones
@@ -106,45 +69,48 @@ def printMenu():
 """
 Menu principal
 """
+def main():
+    while True:
+        printMenu()
+        inputs = input('Seleccione una opción para continuar\n')
 
-while True:
-    printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
+        if int(inputs[0]) == 1:
+            print("Inicializando Catálogo ....")
+            file = 'Data\\theMoviesdb\\short.csv'
+            catalog = controller.initCatalog(file)
 
-    if int(inputs[0]) == 1:
-        print("Inicializando Catálogo ....")
-        file = '../Data/GoodReads/books-small.csv'
-        catalog = controller.initCatalog(file)
+        elif int(inputs[0]) == 2:
+            productora = input('Productora que se quiere ver: ')
+            info2 =controller.descubrirProductoras(catalog, productora)
+            print(info2)
 
-    elif int(inputs[0]) == 2:
-        productora = input('Productora que se quiere ver: ')
-        info2 =controller.descubrirProductoras(catalog, productora)
-        print(info2)
+        elif int(inputs[0]) == 3:
+            director = input("Director de interés: ")
+            info3 = controller.conocerDirector(catalog, director)
+            print(info3)
 
-    elif int(inputs[0]) == 3:
-        director = input("Director de interés: ")
-        info3 = controller.conocerDirector(catalog, director)
-        print(info3)
+        elif int(inputs[0]) == 4:
+            actor = input("Nombre del actor a buscar: ")
+            info4 = controller.conocerActor(catalog, actor)
+            print(info4)
 
-    elif int(inputs[0]) == 4:
-        actor = input("Nombre del actor a buscar: ")
-        info4 = controller.conocerActor(catalog, actor)
-        print(info4)
+        elif int(inputs[0]) == 5:
+            genero = input("Genero: ")
+            info5 = controller.entenderGenero(catalog, genero)
+            print(info5)
 
-    elif int(inputs[0]) == 5:
-        genero = input("Genero: ")
-        info5 = controller.entenderGenero(catalog, genero)
-        print(info5)
+        elif int(inputs[0]) == 6:
+            pais = input("Pais: ")
+            info6 = controller.peliculasPais(catalog, pais)
+            print(info6)
 
-    elif int(inputs[0]) == 6:
-        pais = input("Pais: ")
-        info6 = controller.peliculasPais(catalog, pais)
-        print(info6)
+        elif int(inputs[0]) == 7:
+            director = input("Etiqueta a buscar: ")
+            info7 = controller.datosDirector(catalog, director)
+            print(info7)
+        else:
+            sys.exit(0)
+    sys.exit(0)
 
-    elif int(inputs[0]) == 7:
-        director = input("Etiqueta a buscar: ")
-        info7 = controller.datosDirector(catalog, director)
-        print(info7)
-    else:
-        sys.exit(0)
-sys.exit(0)
+if __name__ == "__main__":
+    main()
