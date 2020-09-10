@@ -75,9 +75,10 @@ def main():
         inputs = input('Seleccione una opción para continuar\n')
 
         if int(inputs[0]) == 1:
-            print("Inicializando Catálogo ....")
+            print("\nInicializando Catálogo ....")
             file = 'Data\\theMoviesdb\\short.csv'
             catalog = controller.initCatalog(file)
+            print("Datos cargados, ",catalog['size']," elementos cargados")
 
         elif int(inputs[0]) == 2:
             productora = input('Productora que se quiere ver: ')
