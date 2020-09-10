@@ -38,7 +38,6 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-# 
 # ___________________________________________________
 #  Funciones para imprimir la información de
 #  respuesta.  La vista solo interactua con
@@ -87,3 +86,65 @@ operación seleccionada.
                 
 # if __name__ == "__main__":
 #     main()
+
+def printMenu():
+    """
+    Imprime el menu de opciones
+    """
+    print("\nBienvenido a: Explorando GoodReads ")
+    print("-"*35)
+    print('1- Cargar Datos')
+    print("2- Descubrir productoras de cine")
+    print("3- Conocer a un director")
+    print("4- Conocer un actor")
+    print("5- Entender un género cinematográfico")
+    print("6- Encontrar películas por país")
+    print("7- Mostrar datos por director")
+    print("0- Salir")
+
+
+"""
+Menu principal
+"""
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        file = '../Data/GoodReads/books-small.csv'
+        catalog = controller.initCatalog(file)
+
+    elif int(inputs[0]) == 2:
+        productora = input('Productora que se quiere ver: ')
+        info2 =controller.descubrirProductoras(catalog, productora)
+        print(info2)
+
+    elif int(inputs[0]) == 3:
+        director = input("Director de interés: ")
+        info3 = controller.conocerDirector(catalog, director)
+        print(info3)
+
+    elif int(inputs[0]) == 4:
+        actor = input("Nombre del actor a buscar: ")
+        info4 = controller.conocerActor(catalog, actor)
+        print(info4)
+
+    elif int(inputs[0]) == 5:
+        genero = input("Genero: ")
+        info5 = controller.entenderGenero(catalog, genero)
+        print(info5)
+
+    elif int(inputs[0]) == 6:
+        pais = input("Pais: ")
+        info6 = controller.peliculasPais(catalog, pais)
+        print(info6)
+
+    elif int(inputs[0]) == 7:
+        director = input("Etiqueta a buscar: ")
+        info7 = controller.datosDirector(catalog, director)
+        print(info7)
+    else:
+        sys.exit(0)
+sys.exit(0)
