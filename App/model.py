@@ -36,7 +36,7 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 
 def newCatalog(file1, sep=";"):
-     """
+    """
     Carga un archivo csv a una lista
     Args:
         file
