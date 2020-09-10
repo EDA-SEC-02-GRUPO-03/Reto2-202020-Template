@@ -78,7 +78,6 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         file = '../Data/GoodReads/books-small.csv'
-        # cont es el controlador que se usará de acá en adelante
         catalog = controller.initCatalog(file)
 
     elif int(inputs[0]) == 2:
