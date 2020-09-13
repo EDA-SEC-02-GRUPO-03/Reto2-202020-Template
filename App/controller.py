@@ -42,7 +42,7 @@ def initCatalog(file1):
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = model.newCatalog(file1)
+    catalog = model.loadData(file1)
     return catalog
 
 
@@ -51,31 +51,82 @@ def initCatalog(file1):
 #  de datos en los modelos
 # ___________________________________________________
 
-def descubrirProductoras(catalog, productora):
+def loadData(catalog, fileD, fileC):
+    loadDetails(catalog, fileD)
+    loadCasting(catalog, fileC)
 
+def loadDetails(catalog, fileD):
+    input_file = csv.DictReader(open(fileD))
+    for movie in input_file:
+        model.addMovie(catalog, movie)
+        productora = movie['production_companies']
+        if productora == 'none':
+            pass
+        else:
+
+        pais = movie['production_countries']
+        if pais == 'none':
+            pass
+        else:
+
+        generos = movie['genres'].split('|')
+        for genero in generos:
+            model.addBookAuthor(catalog, author.strip(), book)
+
+
+
+def loadCasting(catalog, fileC):
+    input_file = csv.DictReader(open(fileC))
+    for movie in input_file:
+        director = movie['director_name']
+        if director == 'none':
+            pass
+        else:
+
+        actor1 = movie['actor1_name']
+        if actor1 == 'none':
+            pass
+        else:
+
+        actor2 = movie['actor2_name']
+        if actor2 == 'none':
+            pass
+        else:
+            
+        actor3 = movie['actor3_name']
+        if actor3 = 'none':
+            pass
+        else:
+
+        actor4 = movie['actor4_name']
+        if actor4 == 'none':
+            pass
+        else:
+
+        actor5 = movie['actor5_name']
+        if actor5 == 'none':
+            pass
+        else:
+
+            
+
+def descubrirProductoras(catalog, productora):
     return model.descubrirProductoras(catalog, productora)
 
 
 def conocerDirector(catalog, director):
-
     return model.conocerDirector(catalog, director)
 
 
 def conocerActor(catalog, actor):
-
     return model.conocerActor(catalog, actor)
 
 
 def entenderGenero(catalog, genero):
-
     return model.entenderGenero(catalog, genero)
 
 
 def peliculasPais(catalog, pais):
-
     return model.peliculasPais(catalog, pais)
 
 
-def datosDirector(catalog, director):
-
-    return model.datosDirector(catalog, director)
