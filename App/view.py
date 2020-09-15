@@ -53,47 +53,73 @@ fileC = 'Data\\theMoviesdb\\shortcasting.csv'
 
 def printProductora(productora, info):
     print("-"*35)
-    print('Las películas de', productora, 'son:')
-    for i in info[0]:
-        print('-'+i)
-    print('\nTotal películas:', info[1])
-    print('Promedio de las películas:', info[2])
+    if info:
+        print('Las películas de', productora, 'son:')
+        peliculas = info['peliculas']
+        size = info['size']
+        prom = info['promedio']
+        for i in range(lt.size(peliculas)):
+            print('-'+ lt.getElement(peliculas, i))
+        print('\nTotal películas:', size)
+        print('Promedio de las películas:', prom)
+    else:
+        print('No se encontro la productora')
     print("-"*35)
+
 
 def printDirector(director, info):
     print("-"*35)
-    print('Las películas dirigidas por', director, 'son:')
-    for i in info[0]:
-        print('-'+i)
-    print('\nTotal películas:', info[1])
-    print('Promedio de las películas:', info[2])
+    if info: 
+        peliculas = info['peliculas']
+        size = info['size']
+        prom = info['promedio']
+        print('Las películas dirigidas por', director, 'son:')
+        for i in range(lt.size(peliculas)):
+            print('-'+ lt.getElement(peliculas, i))
+        print('\nTotal películas:', size)
+        print('Promedio de las películas:', prom)
+    else:
+        print('No se encontró el director')
     print("-"*35)
 
 def printActor(actor, info):
     print("-"*35)
-    print(actor, 'participó en:')
-    for i in info[0]:
-        print('-'+i)
-    print('\nTotal participaciones:', info[1])
-    print('Promedio de las películas:', info[2])
-    print('El director con quien más a colaborado es:', info[3])
+    if info: 
+        peliculas = info['peliculas']
+        size = info['size']
+        prom = info['promedio']
+        director = info['mayorDirector']
+        print(actor, 'participó en:')
+        for i in range(lt.size(peliculas)):
+            print('-'+ lt.getElement(peliculas, i))
+        print('\nTotal participaciones:', size)
+        print('Promedio de las películas:', prom)
+        print('El director con quien más a colaborado es:', director)
+    else:
+        print('No se encontró el actor')
     print("-"*35)
 
 def printGenero(genero, info):
     print("-"*35)
-    print('Películas clasificadas como:', genero)
-    for i in info[0]:
-        print('-'+i)
-    print('\nTotal películas:', info[1])
-    print('Promedio de cantidad de votos:', info[2])
+    if info: 
+        print('Películas clasificadas como:', genero)
+        for i in range(lt.size(info[0])):
+            print('-'+ lt.getElement(info[0], i))
+        print('\nTotal películas:', info[1])
+        print('Promedio de cantidad de votos:', info[2])
+    else:
+        print('No se encontró el director')
     print("-"*35)
 
 def printPais(pais, info):
     print("-"*35)
-    print('Películas producidas en:', pais)
-    for i in range(lt.size(info)):
-        # Pendiente hasta definir como va a ser el retorno
-        print(i)
+    if info: 
+        print('Películas producidas en:', pais)
+        for i in range(lt.size(info)):
+            # Pendiente hasta definir como va a ser el retorno
+            print(i)
+    else:
+        print('No se encontró el director')
     print("-"*35)
 
 # ___________________________________________________
@@ -114,7 +140,6 @@ def printMenu():
     print("6- Encontrar películas por país")
     print("0- Salir")
 
-
 """
 Menu principal
 """
@@ -126,8 +151,19 @@ def main():
         if int(inputs[0]) == 1:
             print("\nInicializando Catálogo ....")
             catalog = controller.initCatalog()
-            controller.loadData(catalog, fileC, fileD)
-            print("Datos cargados, ",catalog['size']," elementos cargados")
+            controller.loadData(catalog, fileD, fileC)
+            print("Datos cargados,", controller.mapSize(catalog, 'id'),
+                " elementos cargados")
+            print(controller.mapSize(catalog, 'productoras'),
+                "productoras cargados")
+            print(controller.mapSize(catalog, 'directores'),
+                "directores cargados")
+            print(controller.mapSize(catalog, 'actores'),
+                "actores cargados")
+            print(controller.mapSize(catalog, 'generos'),
+                "generos cargados")
+            print(controller.mapSize(catalog, 'paises'),
+                "países cargados")
 
         elif int(inputs[0]) == 2:
             productora = input('Productora que se quiere ver: ')
