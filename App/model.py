@@ -99,7 +99,7 @@ def newActor(name):
             "calificacion": 0.0,
             "promedio": 0.0,
             "size": 0,
-            "directores": []
+            "directores": [],
             "mayorDirector": ''}
     actor['name'] = name
     actor['peliculas'] = lt.newList('SINGLE_LINKED', compareActores)
@@ -147,7 +147,7 @@ def addProductora(catalog, pelicula):
     lt.addLast(prod['peliculas'], pelicula['title'])
     prod["calificacion"] += float(pelicula['vote_average'])
     prod["size"] += 1
-    prod["promedio"] = prod["calificacion"] / prod["size"]
+    prod["promedio"] = round(prod["calificacion"] / prod["size"], 2)
 
 # ==============================
 # Funciones de consulta
@@ -188,12 +188,10 @@ def peliculasPais(catalog, pais):
 # ==============================
 
 def compareIds(id1, id2):
-    """
-    Compara dos ids de libros
-    """
-    if (id1 == id2):
+    # print(id1, int(id2['value']['id']))
+    if int(id1) == int(id2['value']['id']):
         return 0
-    elif id1 > id2:
+    elif int(id1) > int(id2['value']['id']):
         return 1
     else:
         return -1
