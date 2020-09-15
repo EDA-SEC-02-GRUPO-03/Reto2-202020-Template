@@ -78,7 +78,7 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         file = '../Data/GoodReads/books-small.csv'
-        catalog = controller.initCatalog('../Data/details.csv', '../Data/details.csv')
+        catalog = controller.initCatalog('../Data/details.csv')
         controller.infoCatalog(catalog)
 
 

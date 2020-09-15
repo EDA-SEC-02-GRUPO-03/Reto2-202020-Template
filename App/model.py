@@ -37,24 +37,8 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def newCatalog(file1, file2, sep=";"):
-    """
-    Carga un archivo csv a una lista
-    Args:
-        file
-            Archivo csv del cual se importaran los datos
-        sep = ";"
-            Separador utilizado para determinar cada objeto dentro del archivo
-        Try:
-        Intenta cargar el archivo CSV a la lista que se le pasa por parametro,
-        si encuentra algun error
-        Borra la lista e informa al usuario
-    Returns: None  
-    """
-    lst1 = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
-    #lst1 = lt.newList() #Usando implementacion linkedlist
-    lst2 = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
-    #lst2 = lt.newList() #Usando implementacion linkedlist
+def newCatalog(file1,sep=";"):
+    lst1 = lt.newList("ARRAY_LIST")
     print("Cargando archivos ....")
     t1_start = process_time() #tiempo inicial
     dialect = csv.excel()
@@ -64,22 +48,16 @@ def newCatalog(file1, file2, sep=";"):
             spamreader = csv.DictReader(csvfile, dialect=dialect)
             for row in spamreader: 
                 lt.addLast(lst1,row)
-        with open(file2, encoding="utf-8") as csvfile:
-            spamreader = csv.DictReader(csvfile, dialect=dialect)
-            for row in spamreader: 
-                lt.addLast(lst2,row)
 
     except:
         print("Hubo un error con la carga de los archivos")
 
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
-    catalog = [lst1,lst2]
-    return catalog
+    return lst1
 
-def infoCatalog(catalog):
-    info1 = catalog[0]['size']
-    details = catalog[0]
+def infoCatalog(details):
+    info1 = details['size']
     element1_F = lt.firstElement(details)
     element1_L = lt.lastElement(details)
     info2 = [element1_F['original_title'],element1_L['original_title']]
