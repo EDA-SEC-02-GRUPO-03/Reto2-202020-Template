@@ -40,10 +40,10 @@ operación seleccionada.
 
 # fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
 # fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
-# fileD = 'Data\\theMoviesdb\\SmallMoviesDetailsCleaned.csv'
-# fileC = 'Data\\theMoviesdb\\MoviesCastingRaw-small.csv'
-fileD = 'Data\\theMoviesdb\\short.csv'
-fileC = 'Data\\theMoviesdb\\shortcasting.csv'
+fileD = 'Data\\theMoviesdb\\SmallMoviesDetailsCleaned.csv'
+fileC = 'Data\\theMoviesdb\\MoviesCastingRaw-small.csv'
+# fileD = 'Data\\theMoviesdb\\short.csv'
+# fileC = 'Data\\theMoviesdb\\shortcasting.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la información de
@@ -54,11 +54,11 @@ fileC = 'Data\\theMoviesdb\\shortcasting.csv'
 def printProductora(productora, info):
     print("-"*35)
     if info:
-        print('Las películas de', productora, 'son:')
         peliculas = info['peliculas']
         size = info['size']
         prom = info['promedio']
-        for i in range(lt.size(peliculas)):
+        print('Las películas de', productora, 'son:')
+        for i in range(1, lt.size(peliculas)):
             print('-'+ lt.getElement(peliculas, i))
         print('\nTotal películas:', size)
         print('Promedio de las películas:', prom)
@@ -74,7 +74,7 @@ def printDirector(director, info):
         size = info['size']
         prom = info['promedio']
         print('Las películas dirigidas por', director, 'son:')
-        for i in range(lt.size(peliculas)):
+        for i in range(1, lt.size(peliculas)):
             print('-'+ lt.getElement(peliculas, i))
         print('\nTotal películas:', size)
         print('Promedio de las películas:', prom)
@@ -90,7 +90,7 @@ def printActor(actor, info):
         prom = info['promedio']
         director = info['mayorDirector']
         print(actor, 'participó en:')
-        for i in range(lt.size(peliculas)):
+        for i in range(1, lt.size(peliculas)):
             print('-'+ lt.getElement(peliculas, i))
         print('\nTotal participaciones:', size)
         print('Promedio de las películas:', prom)
@@ -103,7 +103,7 @@ def printGenero(genero, info):
     print("-"*35)
     if info: 
         print('Películas clasificadas como:', genero)
-        for i in range(lt.size(info[0])):
+        for i in range(1, lt.size(info[0])):
             print('-'+ lt.getElement(info[0], i))
         print('\nTotal películas:', info[1])
         print('Promedio de cantidad de votos:', info[2])
@@ -115,7 +115,7 @@ def printPais(pais, info):
     print("-"*35)
     if info: 
         print('Películas producidas en:', pais)
-        for i in range(lt.size(info)):
+        for i in range(1, lt.size(info)):
             # Pendiente hasta definir como va a ser el retorno
             print(i)
     else:
@@ -130,7 +130,7 @@ def printMenu():
     """
     Imprime el menu de opciones
     """
-    print("\nBienvenido a: Explorando la magia del cine recargado")
+    print("Bienvenido a: Explorando la magia del cine recargado")
     print("-"*35)
     print('1- Cargar Datos')
     print("2- Descubrir productoras de cine")
