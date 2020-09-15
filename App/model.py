@@ -19,10 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
+import csv
 import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from time import process_time 
 assert config
 
 """
@@ -35,22 +37,8 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def newCatalog(file1, sep=";"):
-     """
-    Carga un archivo csv a una lista
-    Args:
-        file
-            Archivo csv del cual se importaran los datos
-        sep = ";"
-            Separador utilizado para determinar cada objeto dentro del archivo
-        Try:
-        Intenta cargar el archivo CSV a la lista que se le pasa por parametro,
-        si encuentra algun error
-        Borra la lista e informa al usuario
-    Returns: None  
-    """
-    catalog = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
-    #catalog = lt.newList() #Usando implementacion linkedlist
+def newCatalog(file1,sep=";"):
+    lst1 = lt.newList("ARRAY_LIST")
     print("Cargando archivos ....")
     t1_start = process_time() #tiempo inicial
     dialect = csv.excel()
@@ -59,14 +47,26 @@ def newCatalog(file1, sep=";"):
         with open(file1, encoding="utf-8") as csvfile:
             spamreader = csv.DictReader(csvfile, dialect=dialect)
             for row in spamreader: 
-                lt.addLast(catalog,row)
+                lt.addLast(lst1,row)
 
     except:
         print("Hubo un error con la carga de los archivos")
 
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
-    return catalog
+    return lst1
+
+def infoCatalog(details):
+    info1 = details['size']
+    element1_F = lt.firstElement(details)
+    element1_L = lt.lastElement(details)
+    info2 = [element1_F['original_title'],element1_L['original_title']]
+    info3 = [element1_F['release_date'],element1_L['release_date']]
+    info4 = [element1_F['vote_average'],element1_L['vote_average']]
+    info5 = [element1_F['vote_count'],element1_L['vote_count']]
+    info6 = [element1_F['spoken_language'],element1_L['spoken_language']]
+    return [info1,info2, info3, info4, info5, info6]
+    
 
 
 # Funciones para agregar informacion al catalogo

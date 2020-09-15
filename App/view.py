@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+import csv
 import sys
 import config
 from DISClib.ADT import list as lt
@@ -142,6 +142,52 @@ def printMenu():
 """
 Menu principal
 """
+<<<<<<< HEAD
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        file = '../Data/GoodReads/books-small.csv'
+        catalog = controller.initCatalog('../Data/details.csv')
+        controller.infoCatalog(catalog)
+
+
+    elif int(inputs[0]) == 2:
+        productora = input('Productora que se quiere ver: ')
+        info2 =controller.descubrirProductoras(catalog, productora)
+        print(info2)
+
+    elif int(inputs[0]) == 3:
+        director = input("Director de interés: ")
+        info3 = controller.conocerDirector(catalog, director)
+        print(info3)
+
+    elif int(inputs[0]) == 4:
+        actor = input("Nombre del actor a buscar: ")
+        info4 = controller.conocerActor(catalog, actor)
+        print(info4)
+
+    elif int(inputs[0]) == 5:
+        genero = input("Genero: ")
+        info5 = controller.entenderGenero(catalog, genero)
+        print(info5)
+
+    elif int(inputs[0]) == 6:
+        pais = input("Pais: ")
+        info6 = controller.peliculasPais(catalog, pais)
+        print(info6)
+
+    elif int(inputs[0]) == 7:
+        director = input("Etiqueta a buscar: ")
+        info7 = controller.datosDirector(catalog, director)
+        print(info7)
+    else:
+        sys.exit(0)
+sys.exit(0)
+=======
 def main():
     while True:
         printMenu()
@@ -183,3 +229,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+>>>>>>> 2ad1e770dcd575f0de6b9f8db72c9bfac5ab5946
