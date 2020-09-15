@@ -37,14 +37,13 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
-def initCatalog(file1):
+def initCatalog():
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = model.loadData(file1)
+    catalog = model.newCatalog()
     return catalog
-
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
@@ -55,60 +54,70 @@ def loadData(catalog, fileD, fileC):
     loadDetails(catalog, fileD)
     loadCasting(catalog, fileC)
 
-def loadDetails(catalog, fileD):
-    input_file = csv.DictReader(open(fileD))
-    for movie in input_file:
-        model.addMovie(catalog, movie)
-        productora = movie['production_companies']
-        if productora == 'none':
-            pass
-        else:
-
-        pais = movie['production_countries']
-        if pais == 'none':
-            pass
-        else:
-
-        generos = movie['genres'].split('|')
-        for genero in generos:
-            model.addBookAuthor(catalog, author.strip(), book)
-
-
-
-def loadCasting(catalog, fileC):
-    input_file = csv.DictReader(open(fileC))
-    for movie in input_file:
-        director = movie['director_name']
-        if director == 'none':
-            pass
-        else:
-
-        actor1 = movie['actor1_name']
-        if actor1 == 'none':
-            pass
-        else:
-
-        actor2 = movie['actor2_name']
-        if actor2 == 'none':
-            pass
-        else:
+def loadDetails(catalog, fileD, sep = ';'):
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    with open(fileD, encoding="utf-8") as csvfile:
+        input_file = csv.DictReader(csvfile, dialect=dialect)
+        for movie in input_file:
+            model.addMovie(catalog, movie)
             
-        actor3 = movie['actor3_name']
-        if actor3 = 'none':
-            pass
-        else:
-
-        actor4 = movie['actor4_name']
-        if actor4 == 'none':
-            pass
-        else:
-
-        actor5 = movie['actor5_name']
-        if actor5 == 'none':
-            pass
-        else:
-
+            productora = movie['production_companies']
+            if productora == 'none':
+                pass
+            else:
+                model.addProductora(catalog, movie)
             
+            pais = movie['production_countries']
+            if pais == 'none':
+                pass
+            else:
+                pass
+            
+            generos = movie['genres'].split('|')
+            for genero in generos:
+                pass
+
+
+def loadCasting(catalog, fileC, sep=';'):
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    with open(fileC, encoding="utf-8") as csvfile:
+        input_file = csv.DictReader(csvfile, dialect=dialect)
+        for movie in input_file:
+            director = movie['director_name']
+            if director == 'none':
+                pass
+            else:
+                pass
+            actor1 = movie['actor1_name']
+            if actor1 == 'none':
+                pass
+            else:
+                pass
+            actor2 = movie['actor2_name']
+            if actor2 == 'none':
+                pass
+            else:
+                pass
+            actor3 = movie['actor3_name']
+            if actor3 == 'none':
+                pass
+            else:
+                pass
+            actor4 = movie['actor4_name']
+            if actor4 == 'none':
+                pass
+            else:
+                pass
+            actor5 = movie['actor5_name']
+            if actor5 == 'none':
+                pass
+            else:
+                pass
+
+def mapSize(catalog, key):
+    return model.mapSize(catalog, key)
 
 def descubrirProductoras(catalog, productora):
     return model.descubrirProductoras(catalog, productora)
