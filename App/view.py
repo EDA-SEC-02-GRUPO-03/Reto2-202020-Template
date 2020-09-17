@@ -40,10 +40,10 @@ operación seleccionada.
 
 # fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
 # fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
-# fileD = 'Data\\theMoviesdb\\SmallMoviesDetailsCleaned.csv'
-# fileC = 'Data\\theMoviesdb\\MoviesCastingRaw-small.csv'
-fileD = 'Data\\theMoviesdb\\short.csv'
-fileC = 'Data\\theMoviesdb\\shortcasting.csv'
+fileD = 'Data\\theMoviesdb\\SmallMoviesDetailsCleaned.csv'
+fileC = 'Data\\theMoviesdb\\MoviesCastingRaw-small.csv'
+# fileD = 'Data\\theMoviesdb\\short.csv'
+# fileC = 'Data\\theMoviesdb\\shortcasting.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la información de
