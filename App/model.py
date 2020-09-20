@@ -19,10 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
+import csv
 import config
+import csv
+from time import process_time
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from time import process_time 
 assert config
 
 """
@@ -35,51 +39,131 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def newCatalog(file1, sep=";"):
-    """
-    Carga un archivo csv a una lista
-    Args:
-        file
-            Archivo csv del cual se importaran los datos
-        sep = ";"
-            Separador utilizado para determinar cada objeto dentro del archivo
-        Try:
-        Intenta cargar el archivo CSV a la lista que se le pasa por parametro,
-        si encuentra algun error
-        Borra la lista e informa al usuario
-    Returns: None  
-    """
-    catalog = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
-    #catalog = lt.newList() #Usando implementacion linkedlist
-    print("Cargando archivos ....")
-    t1_start = process_time() #tiempo inicial
-    dialect = csv.excel()
-    dialect.delimiter=sep
-    try:
-        with open(file1, encoding="utf-8") as csvfile:
-            spamreader = csv.DictReader(csvfile, dialect=dialect)
-            for row in spamreader: 
-                lt.addLast(catalog,row)
+def newCatalog():
+    catalog = {'peliculas': None,
+               'productoras': None,
+               'directores': None,
+               'actores': None,
+               'generos': None,
+               'paises': None}
 
-    except:
-        print("Hubo un error con la carga de los archivos")
+    catalog['peliculas'] = lt.newList('SINGLE_LINKED', compareIds)
+    catalog['id'] = mp.newMap(4000,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareIds)
+    catalog['productoras'] = mp.newMap(500,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareProductoras)
+    catalog['directores'] = mp.newMap(1000,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareDirectores)
+    catalog['actores'] = mp.newMap(1000,
+                                maptype='CHAINING',
+                                loadfactor=0.7,
+                                comparefunction=compareActores)
+    catalog['generos'] = mp.newMap(20,
+                                  maptype='CHAINING',
+                                  loadfactor=0.7,
+                                  comparefunction=compareGeneros)
+    catalog['paises'] = mp.newMap(100,
+                                 maptype='CHAINING',
+                                 loadfactor=0.7,
+                                 comparefunction=comparePaises)
 
-    t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return catalog
 
+def newProductora(name):
+    prod = {'name': "", 
+            "peliculas": None,  
+            "calificacion": 0.0,
+            "promedio": 0.0,
+            "size": 0}
+    prod['name'] = name
+    prod['peliculas'] = lt.newList('SINGLE_LINKED', compareProductoras)
+    return prod
+
+def newDirector(name):
+    direct = {'name': "", 
+            "peliculas": None,  
+            "calificacion": 0.0,
+            "promedio": 0.0,
+            "size": 0}
+    direct['name'] = name
+    direct['peliculas'] = lt.newList('SINGLE_LINKED', compareDirectores)
+    return direct
+
+def newActor(name):
+    actor = {'name': "", 
+            "peliculas": None,  
+            "calificacion": 0.0,
+            "promedio": 0.0,
+            "size": 0,
+            "directores": [],
+            "mayorDirector": ''}
+    actor['name'] = name
+    actor['peliculas'] = lt.newList('SINGLE_LINKED', compareActores)
+    return actor
+
+def newGenero(name):
+    genero = {'name': '',
+              'numPeliculas': 0,
+              'peliculas': None,
+              "promedio": 0.0,
+              "size": 0,
+              'cantVotos': 0}
+    genero['name'] = name
+    genero['books'] = lt.newList('SINGLE_LINKED', compareGeneros)
+    return genero
+
+def newPais(name):
+    pais = {'name': '',
+              'numPeliculas': 0,
+              'peliculas': None,}
+    pais['name'] = name
+    pais['books'] = lt.newList('SINGLE_LINKED', comparePaises)
+    return pais
 
 # Funciones para agregar informacion al catalogo
 
+def addMovie(catalog, pelicula):
+    lt.addLast(catalog['peliculas'], pelicula)
+    # print(lt.getElement(catalog['peliculas'],1))
+    # print(pelicula)
+    # print(pelicula['title'])
+    mp.put(catalog['id'],
+     pelicula['id'], pelicula)
 
+def addProductora(catalog, pelicula):
+    productoras = catalog['productoras']
+    productora = pelicula['production_companies'].lower()
+    existeProductora = mp.contains(productoras, productora)
+    if existeProductora:
+        entry = mp.get(productoras, productora)
+        prod = me.getValue(entry)
+    else:
+        prod = newProductora(productora)
+        mp.put(productoras, productora, prod)
+    lt.addLast(prod['peliculas'], pelicula['title'])
+    prod["calificacion"] += float(pelicula['vote_average'])
+    prod["size"] += 1
+    prod["promedio"] = round(prod["calificacion"] / prod["size"], 2)
 
 # ==============================
 # Funciones de consulta
 # ==============================
 
-def descubrirProductoras(catalog, productora):
+def mapSize(catalog, key):
+    return mp.size(catalog[key])
 
-    pass
+def descubrirProductoras(catalog, productora):
+    product = mp.get(catalog['productoras'], productora.lower())
+    if product:
+        info = me.getValue(product)
+        return info
+    return None
 
 
 def conocerDirector(catalog, director):
@@ -101,15 +185,64 @@ def peliculasPais(catalog, pais):
 
     pass
 
-
-def datosDirector(catalog, director):
-
-    pass
-
-
 # ==============================
 # Funciones de Comparacion
 # ==============================
 
+def compareIds(id1, id2):
+    # print(id1, int(id2['value']['id']))
+    if int(id1) == int(id2['value']['id']):
+        return 0
+    elif int(id1) > int(id2['value']['id']):
+        return 1
+    else:
+        return -1
 
+
+def compareProductoras(id, entry):
+    identry = me.getKey(entry)
+    if id == identry:
+        return 0
+    elif id > identry:
+        return 1
+    else:
+        return -1
+
+
+def compareDirectores(keyname, prod):
+    authentry = me.getKey(prod)
+    if (keyname == authentry):
+        return 0
+    elif (keyname > authentry):
+        return 1
+    else:
+        return -1
+
+
+def compareActores(name, genero):
+    generoentry = me.getKey(genero)
+    if (name == generoentry):
+        return 0
+    elif (name > generoentry):
+        return 1
+    else:
+        return -1
+
+def compareGeneros(id, genero):
+    generoentry = me.getKey(genero)
+    if (int(id) == int(generoentry)):
+        return 0
+    elif (int(id) > int(generoentry)):
+        return 1
+    else:
+        return -1
+
+def comparePaises(id, genero):
+    generoentry = me.getKey(genero)
+    if (id == generoentry):
+        return 0
+    elif (id > generoentry):
+        return 1
+    else:
+        return -1
 
