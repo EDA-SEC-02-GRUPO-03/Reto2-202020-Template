@@ -70,9 +70,7 @@ def loadDetails(catalog, fileD, sep = ';'):
             if productora == 'none':
                 pass
             else:
-                model.addProductora(catalog, movie)
-
-                        
+                model.addProductora(catalog, movie)                     
             
             pais = movie['production_countries']
             if pais == 'none':
@@ -104,27 +102,28 @@ def loadCasting(catalog, fileC, sep=';'):
             if actor1 == 'none':
                 pass
             else:
-                pass
+                model.addActor(catalog, movie ,1)
             actor2 = movie['actor2_name']
             if actor2 == 'none':
                 pass
             else:
-                pass
+                model.addActor(catalog, movie ,2)
             actor3 = movie['actor3_name']
             if actor3 == 'none':
                 pass
             else:
-                pass
+                model.addActor(catalog, movie ,3)
+                
             actor4 = movie['actor4_name']
             if actor4 == 'none':
                 pass
             else:
-                pass
+                model.addActor(catalog, movie ,4)
             actor5 = movie['actor5_name']
             if actor5 == 'none':
                 pass
             else:
-                pass
+                model.addActor(catalog, movie ,5)
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
 

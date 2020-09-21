@@ -164,28 +164,30 @@ def addDirector (catalog, pelicula):
 
     pass
 
-def addActor (catalog, pelicula):
+def addActor (catalog, pelicula, n):
     actores = catalog['actores']
-    actor = lt.newList()
-    lt.addLast(actor,pelicula['actor1_name'] )
-    lt.addLast(actor,pelicula['actor2_name'] )
-    lt.addLast(actor,pelicula['actor3_name'] )
-    lt.addLast(actor,pelicula['actor4_name'] )
-    lt.addLast(actor,pelicula['actor5_name'] )
-    iterador = it.newIterator(actor)
-    while it.hasNext(iterador):
-        elemento = it.next(iterador).lower()
-        existeActor = mp.contains(actores,elemento)
-        if existeActor:
-            entry = mp.get(actores, elemento)
-            act = me.getValue(entry)
-        else:
-            act = newActor(elemento)
-            mp.put(actores, elemento, act)
-        lt.addLast(act['peliculas'], pelicula['title'])
-        act["calificacion"] += float(pelicula['vote_average'])
-        act["size"] += 1
-        act["promedio"] = round(act["calificacion"] / act["size"], 2)
+    if n == 1:
+        actor = pelicula['actor1_name']
+    elif n ==2: 
+        actor = pelicula['actor2_name']
+    elif n == 3:
+        actor = pelicula['actor3_name'] 
+    elif n == 4:
+        actor = pelicula['actor4_name'] 
+    else: 
+        actor = pelicula['actor5_name'] 
+
+    existeActor = mp.contains(actores, actor)
+    if existeActor:
+        entry = mp.get(actores, actor)
+        act = me.getValue(entry)
+    else:
+        act = newActor(actor)
+        mp.put(actores, actor, act)
+    lt.addLast(act['peliculas'], pelicula['id'])
+    if lt.isPresent(act['directores'], pelicula['directores'])
+    act["size"] += 1
+    
 
 
 # ==============================
