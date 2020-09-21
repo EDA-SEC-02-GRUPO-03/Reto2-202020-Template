@@ -49,15 +49,15 @@ def newCatalog():
                'paises': None}
 
     catalog['peliculas'] = lt.newList('SINGLE_LINKED', compareIds)
-    catalog['id'] = mp.newMap(400000,
+    catalog['id'] = mp.newMap(830000,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareIds)
-    catalog['idCast'] = mp.newMap(400000,
+    catalog['idCast'] = mp.newMap(830000,
                                     maptype='PROBING',
                                     loadfactor=0.4,
                                     comparefunction=compareIds)
-    catalog['productoras'] = mp.newMap(50000,
+    catalog['productoras'] = mp.newMap(90000,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareProductoras)
@@ -65,7 +65,7 @@ def newCatalog():
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareDirectores)
-    catalog['actores'] = mp.newMap(400000,
+    catalog['actores'] = mp.newMap(830000,
                                 maptype='CHAINING',
                                 loadfactor=0.7,
                                 comparefunction=compareActores)
@@ -73,7 +73,7 @@ def newCatalog():
                                   maptype='CHAINING',
                                   loadfactor=0.7,
                                   comparefunction=compareGeneros)
-    catalog['paises'] = mp.newMap(200,
+    catalog['paises'] = mp.newMap(600,
                                  maptype='CHAINING',
                                  loadfactor=0.7,
                                  comparefunction=comparePaises)

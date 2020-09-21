@@ -72,7 +72,7 @@ def loadDetails(catalog, fileD, sep = ';'):
             else:
                 model.addProductora(catalog, movie)
 
-            
+                        
             
             pais = movie['production_countries']
             if pais == 'none':
