@@ -38,6 +38,7 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+
 def initCatalog():
     """
     Llama la funcion de inicializacion del catalogo del modelo.

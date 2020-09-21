@@ -38,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
-fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
+fileD = 'Data\AllMoviesDetailsCleaned.csv'
+fileC = 'Data\AllMoviesCastingRaw.csv'
 # fileD = 'Data\\theMoviesdb\\SmallMoviesDetailsCleaned.csv'
 # fileC = 'Data\\theMoviesdb\\MoviesCastingRaw-small.csv'
 # fileD = 'Data\\theMoviesdb\\short.csv'
@@ -130,11 +130,7 @@ def printMenu():
     """
     Imprime el menu de opciones
     """
-<<<<<<< HEAD
-    print("\nBienvenido a: Explorando Películas ")
-=======
     print("Bienvenido a: Explorando la magia del cine recargado")
->>>>>>> 2d763570629ab3aee5a4705b0b35c9a9eb5087bb
     print("-"*35)
     print('1- Cargar Datos')
     print("2- Descubrir productoras de cine")
@@ -153,11 +149,6 @@ def main():
         inputs = input('Seleccione una opción para continuar\n')
 
         if int(inputs[0]) == 1:
-<<<<<<< HEAD
-            print("Inicializando Catálogo ....")
-            file = '../Data/GoodReads/books-small.csv'
-            catalog = controller.initCatalog(file)
-=======
             print("\nInicializando Catálogo ....")
             catalog = controller.initCatalog()
             controller.loadData(catalog, fileD, fileC)
@@ -173,59 +164,30 @@ def main():
                 "generos cargados")
             print(controller.mapSize(catalog, 'paises'),
                 "países cargados")
->>>>>>> 2d763570629ab3aee5a4705b0b35c9a9eb5087bb
 
         elif int(inputs[0]) == 2:
             productora = input('Productora que se quiere ver: ')
             info2 =controller.descubrirProductoras(catalog, productora)
-<<<<<<< HEAD
-            print(info2)
-=======
             printProductora(productora, info2)
->>>>>>> 2d763570629ab3aee5a4705b0b35c9a9eb5087bb
 
         elif int(inputs[0]) == 3:
             director = input("Director de interés: ")
             info3 = controller.conocerDirector(catalog, director)
-<<<<<<< HEAD
-            print(info3)
-=======
             printDirector(director, info3)
->>>>>>> 2d763570629ab3aee5a4705b0b35c9a9eb5087bb
 
         elif int(inputs[0]) == 4:
             actor = input("Nombre del actor a buscar: ")
             info4 = controller.conocerActor(catalog, actor)
-<<<<<<< HEAD
-            print(info4)
-=======
             printActor(actor, info4)
->>>>>>> 2d763570629ab3aee5a4705b0b35c9a9eb5087bb
 
         elif int(inputs[0]) == 5:
             genero = input("Genero: ")
             info5 = controller.entenderGenero(catalog, genero)
-<<<<<<< HEAD
-            print(info5)
-=======
             printGenero(genero, info5)
->>>>>>> 2d763570629ab3aee5a4705b0b35c9a9eb5087bb
 
         elif int(inputs[0]) == 6:
             pais = input("Pais: ")
             info6 = controller.peliculasPais(catalog, pais)
-<<<<<<< HEAD
-            print(info6)
-
-        elif int(inputs[0]) == 7:
-            director = input("Etiqueta a buscar: ")
-            info7 = controller.datosDirector(catalog, director)
-            print(info7)
-        else:
-            sys.exit(0)
-main()
-sys.exit(0)
-=======
             printPais(pais, info6)
 
         else:
@@ -233,4 +195,3 @@ sys.exit(0)
 
 if __name__ == "__main__":
     main()
->>>>>>> 2d763570629ab3aee5a4705b0b35c9a9eb5087bb
