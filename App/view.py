@@ -38,12 +38,12 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
-fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
+# fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
+# fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
 # fileD = 'Data\\theMoviesdb\\SmallMoviesDetailsCleaned.csv'
 # fileC = 'Data\\theMoviesdb\\MoviesCastingRaw-small.csv'
-# fileD = 'Data\\theMoviesdb\\short.csv'
-# fileC = 'Data\\theMoviesdb\\shortcasting.csv'
+fileD = 'Data\\theMoviesdb\\short.csv'
+fileC = 'Data\\theMoviesdb\\shortcasting.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la información de
@@ -108,7 +108,7 @@ def printGenero(genero, info):
         print('\nTotal películas:', info[1])
         print('Promedio de cantidad de votos:', info[2])
     else:
-        print('No se encontró el director')
+        print('No se encontró el género')
     print("-"*35)
 
 def printPais(pais, info):
@@ -116,10 +116,10 @@ def printPais(pais, info):
     if info: 
         print('Películas producidas en:', pais)
         for i in range(1, lt.size(info)):
-            # Pendiente hasta definir como va a ser el retorno
-            print(i)
+            data = lt.getElement(info, i)
+            print(data[0], data[1], data[2])
     else:
-        print('No se encontró el director')
+        print('No se encontró el país')
     print("-"*35)
 
 # ___________________________________________________

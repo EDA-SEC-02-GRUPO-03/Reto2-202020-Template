@@ -59,11 +59,16 @@ def loadDetails(catalog, fileD, sep = ';'):
     t1_start = process_time() #tiempo inicial
     dialect = csv.excel()
     dialect.delimiter=sep
+    # ahhhh = 0
     with open(fileD, encoding="utf-8-sig") as csvfile:
         input_file = csv.DictReader(csvfile, dialect=dialect)
         for movie in input_file:
             # print(movie)
             model.addMovie(catalog, movie)
+
+            # if ahhhh % 5000 == 0:
+            #     print(ahhhh, movie['id'])
+            # ahhhh += 1
             
             productora = movie['production_companies']
             if productora == 'none':
@@ -75,11 +80,11 @@ def loadDetails(catalog, fileD, sep = ';'):
             if pais == 'none':
                 pass
             else:
-                pass
+                model.addPais(catalog, movie)
             
-            generos = movie['genres'].split('|')
-            for genero in generos:
-                pass
+            # generos = movie['genres'].split('|')
+            # for genero in generos:
+            #     pass
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
 
@@ -91,36 +96,37 @@ def loadCasting(catalog, fileC, sep=';'):
     with open(fileC, encoding="utf-8-sig") as csvfile:
         input_file = csv.DictReader(csvfile, dialect=dialect)
         for movie in input_file:
+            model.addCast(catalog, movie)
             director = movie['director_name']
             if director == 'none':
                 pass
             else:
-                pass
-            actor1 = movie['actor1_name']
-            if actor1 == 'none':
-                pass
-            else:
-                pass
-            actor2 = movie['actor2_name']
-            if actor2 == 'none':
-                pass
-            else:
-                pass
-            actor3 = movie['actor3_name']
-            if actor3 == 'none':
-                pass
-            else:
-                pass
-            actor4 = movie['actor4_name']
-            if actor4 == 'none':
-                pass
-            else:
-                pass
-            actor5 = movie['actor5_name']
-            if actor5 == 'none':
-                pass
-            else:
-                pass
+                model.addDirector(catalog, movie)
+            # actor1 = movie['actor1_name']
+            # if actor1 == 'none':
+            #     pass
+            # else:
+            #     pass
+            # actor2 = movie['actor2_name']
+            # if actor2 == 'none':
+            #     pass
+            # else:
+            #     pass
+            # actor3 = movie['actor3_name']
+            # if actor3 == 'none':
+            #     pass
+            # else:
+            #     pass
+            # actor4 = movie['actor4_name']
+            # if actor4 == 'none':
+            #     pass
+            # else:
+            #     pass
+            # actor5 = movie['actor5_name']
+            # if actor5 == 'none':
+            #     pass
+            # else:
+            #     pass
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
 

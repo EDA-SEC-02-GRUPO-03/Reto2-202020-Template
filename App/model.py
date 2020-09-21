@@ -52,7 +52,11 @@ def newCatalog():
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareIds)
-    catalog['productoras'] = mp.newMap(500,
+    catalog['idCast'] = mp.newMap(4000,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareIds)
+    catalog['productoras'] = mp.newMap(1000,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareProductoras)
@@ -115,15 +119,14 @@ def newGenero(name):
               "size": 0,
               'cantVotos': 0}
     genero['name'] = name
-    genero['books'] = lt.newList('SINGLE_LINKED', compareGeneros)
+    genero['peliculas'] = lt.newList('SINGLE_LINKED', compareGeneros)
     return genero
 
 def newPais(name):
     pais = {'name': '',
-              'numPeliculas': 0,
               'peliculas': None,}
     pais['name'] = name
-    pais['books'] = lt.newList('SINGLE_LINKED', comparePaises)
+    pais['peliculas'] = lt.newList('SINGLE_LINKED', comparePaises)
     return pais
 
 # Funciones para agregar informacion al catalogo
@@ -134,6 +137,10 @@ def addMovie(catalog, pelicula):
     # print(pelicula)
     # print(pelicula['title'])
     mp.put(catalog['id'],
+     pelicula['id'], pelicula)
+
+def addCast(catalog, pelicula):
+    mp.put(catalog['idCast'],
      pelicula['id'], pelicula)
 
 def addProductora(catalog, pelicula):
@@ -151,6 +158,38 @@ def addProductora(catalog, pelicula):
     prod["size"] += 1
     prod["promedio"] = round(prod["calificacion"] / prod["size"], 2)
 
+def addDirector(catalog, pelicula):
+    directores = catalog['directores']
+    director = pelicula['director_name'].lower()
+    existeDirector = mp.contains(directores, director)
+    if existeDirector:
+        entry = mp.get(directores, director)
+        dir = me.getValue(entry)
+    else:
+        dir = newDirector(director)
+        mp.put(directores, director, dir)
+    peliData = me.getValue(mp.get(catalog['id'], pelicula['id']))
+    lt.addLast(dir['peliculas'], peliData['title'])
+    dir["calificacion"] += float(peliData['vote_average'])
+    dir["size"] += 1
+    dir["promedio"] = round(dir["calificacion"] / dir["size"], 2)
+
+def addPais(catalog, pelicula):
+    paises = catalog['paises']
+    pais = pelicula['production_countries'].lower()
+    existePais = mp.contains(paises, pais)
+    if existePais:
+        entry = mp.get(paises, pais)
+        dir = me.getValue(entry)
+    else:
+        dir = newDirector(pais)
+        mp.put(paises, pais, dir)
+    peliData = me.getValue(mp.get(catalog['id'], pelicula['id']))
+    titulo = peliData['title']
+    anio = peliData['release_date'][-4:]
+    id = peliData['id']
+    lt.addLast(dir['peliculas'], (titulo, anio, id))
+
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -167,8 +206,11 @@ def descubrirProductoras(catalog, productora):
 
 
 def conocerDirector(catalog, director):
-
-    pass
+    dir = mp.get(catalog['directores'], director.lower())
+    if dir:
+        info = me.getValue(dir)
+        return info
+    return None
 
 
 def conocerActor(catalog, actor):
@@ -182,7 +224,22 @@ def entenderGenero(catalog, genero):
 
 
 def peliculasPais(catalog, pais):
-
+    data = mp.get(catalog['paises'], pais.lower())
+    if data:
+        info = lt.newList()
+        base = me.getValue(data)
+        peliculas = base['peliculas']
+        for i in range(lt.size(peliculas)):
+            peli = lt.getElement(peliculas, i)
+            titulo = peli[0]
+            anio = peli[1]
+            id = peli[2]
+            dataCast = mp.get(catalog['idCast'], id)
+            director = me.getValue(dataCast)
+            print(director)
+            director = director['director_name']
+            lt.addLast(info, (titulo, anio, director))
+        return info
     pass
 
 # ==============================
@@ -237,11 +294,14 @@ def compareGeneros(id, genero):
     else:
         return -1
 
-def comparePaises(id, genero):
-    generoentry = me.getKey(genero)
-    if (id == generoentry):
+def comparePaises(id, pais):
+    # paisentry = me.getKey(pais)
+    # print(id, pais['key'],paisentry)
+    # print(id == pais['key'])
+    # print(id == paisentry)
+    if (id == pais['key']):
         return 0
-    elif (id > generoentry):
+    elif (id > pais['key']):
         return 1
     else:
         return -1
