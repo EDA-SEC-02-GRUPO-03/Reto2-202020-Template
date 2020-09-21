@@ -24,7 +24,7 @@ import sys
 import config as cf
 from App import model
 import csv
-from time import process_time 
+from time import process_time
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -37,6 +37,7 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+
 
 def initCatalog():
     """
@@ -51,14 +52,16 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
+
 def loadData(catalog, fileD, fileC):
     loadDetails(catalog, fileD)
     loadCasting(catalog, fileC)
 
-def loadDetails(catalog, fileD, sep = ';'):
-    t1_start = process_time() #tiempo inicial
+
+def loadDetails(catalog, fileD, sep=';'):
+    t1_start = process_time()  # tiempo inicial
     dialect = csv.excel()
-    dialect.delimiter=sep
+    dialect.delimiter = sep
     # ahhhh = 0
     with open(fileD, encoding="utf-8-sig") as csvfile:
         input_file = csv.DictReader(csvfile, dialect=dialect)
@@ -73,30 +76,30 @@ def loadDetails(catalog, fileD, sep = ';'):
             #     print(mapSize(catalog, 'paises'),
             #         "países cargados\n")
             # ahhhh += 1
-            
+
             productora = movie['production_companies']
             if productora == 'none':
                 pass
             else:
                 model.addProductora(catalog, movie)
-            
+
             pais = movie['production_countries']
             if pais == 'none':
                 pass
             else:
                 model.addPais(catalog, movie)
-            
+
             # generos = movie['genres'].split('|')
             # for genero in generos:
             #     pass
-    t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    t1_stop = process_time()  # tiempo final
+    print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
 
 
 def loadCasting(catalog, fileC, sep=';'):
-    t1_start = process_time() #tiempo inicial
+    t1_start = process_time()  # tiempo inicial
     dialect = csv.excel()
-    dialect.delimiter=sep
+    dialect.delimiter = sep
     # ahhhh = 0
     with open(fileC, encoding="utf-8-sig") as csvfile:
         input_file = csv.DictReader(csvfile, dialect=dialect)
@@ -139,43 +142,49 @@ def loadCasting(catalog, fileC, sep=';'):
                 pass
             else:
                 pass
-    t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    t1_stop = process_time()  # tiempo final
+    print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
+
 
 def mapSize(catalog, key):
     return model.mapSize(catalog, key)
 
+
 def descubrirProductoras(catalog, productora):
-    t1_start = process_time() #tiempo inicial
+    t1_start = process_time()  # tiempo inicial
     info = model.descubrirProductoras(catalog, productora)
-    t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    t1_stop = process_time()  # tiempo final
+    print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
     return info
+
 
 def conocerDirector(catalog, director):
-    t1_start = process_time() #tiempo inicial
+    t1_start = process_time()  # tiempo inicial
     info = model.conocerDirector(catalog, director)
-    t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    t1_stop = process_time()  # tiempo final
+    print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
     return info
+
 
 def conocerActor(catalog, actor):
-    t1_start = process_time() #tiempo inicial
+    t1_start = process_time()  # tiempo inicial
     info = model.conocerActor(catalog, actor)
-    t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    t1_stop = process_time()  # tiempo final
+    print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
     return info
+
 
 def entenderGenero(catalog, genero):
-    t1_start = process_time() #tiempo inicial
+    t1_start = process_time()  # tiempo inicial
     info = model.entenderGenero(catalog, genero)
-    t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    t1_stop = process_time()  # tiempo final
+    print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
     return info
 
+
 def peliculasPais(catalog, pais):
-    t1_start = process_time() #tiempo inicial
+    t1_start = process_time()  # tiempo inicial
     info = model.peliculasPais(catalog, pais)
-    t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    t1_stop = process_time()  # tiempo final
+    print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
     return info

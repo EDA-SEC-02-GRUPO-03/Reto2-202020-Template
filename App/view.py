@@ -51,6 +51,7 @@ fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
 #  el controlador.
 # ___________________________________________________
 
+
 def printProductora(productora, info):
     print("-"*35)
     if info:
@@ -59,7 +60,7 @@ def printProductora(productora, info):
         prom = info['promedio']
         print('Las películas de', productora, 'son:')
         for i in range(1, lt.size(peliculas)+1):
-            print('-'+ lt.getElement(peliculas, i))
+            print('-' + lt.getElement(peliculas, i))
         print('\nTotal películas:', size)
         print('Promedio de las películas:', prom)
     else:
@@ -69,29 +70,30 @@ def printProductora(productora, info):
 
 def printDirector(director, info):
     print("-"*35)
-    if info: 
+    if info:
         peliculas = info['peliculas']
         size = info['size']
         prom = info['promedio']
         print('Las películas dirigidas por', director, 'son:')
         for i in range(1, lt.size(peliculas) + 1):
-            print('-'+ lt.getElement(peliculas, i))
+            print('-' + lt.getElement(peliculas, i))
         print('\nTotal películas:', size)
         print('Promedio de las películas:', prom)
     else:
         print('No se encontró el director')
     print("-"*35)
 
+
 def printActor(actor, info):
     print("-"*35)
-    if info: 
+    if info:
         peliculas = info['peliculas']
         size = info['size']
         prom = info['promedio']
         director = info['mayorDirector']
         print(actor, 'participó en:')
         for i in range(1, lt.size(peliculas)+1):
-            print('-'+ lt.getElement(peliculas, i))
+            print('-' + lt.getElement(peliculas, i))
         print('\nTotal participaciones:', size)
         print('Promedio de las películas:', prom)
         print('El director con quien más a colaborado es:', director)
@@ -99,21 +101,23 @@ def printActor(actor, info):
         print('No se encontró el actor')
     print("-"*35)
 
+
 def printGenero(genero, info):
     print("-"*35)
-    if info: 
+    if info:
         print('Películas clasificadas como:', genero)
         for i in range(1, lt.size(info[0]+1)):
-            print('-'+ lt.getElement(info[0], i))
+            print('-' + lt.getElement(info[0], i))
         print('\nTotal películas:', info[1])
         print('Promedio de cantidad de votos:', info[2])
     else:
         print('No se encontró el género')
     print("-"*35)
 
+
 def printPais(pais, info):
     print("-"*35)
-    if info: 
+    if info:
         print('Películas producidas en:', pais)
         for i in range(1, (lt.size(info))+1):
             data = lt.getElement(info, i)
@@ -125,6 +129,7 @@ def printPais(pais, info):
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
 
 def printMenu():
     """
@@ -140,9 +145,12 @@ def printMenu():
     print("6- Encontrar películas por país")
     print("0- Salir")
 
+
 """
 Menu principal
 """
+
+
 def main():
     while True:
         printMenu()
@@ -153,21 +161,21 @@ def main():
             catalog = controller.initCatalog()
             controller.loadData(catalog, fileD, fileC)
             print("Datos cargados,", controller.mapSize(catalog, 'id'),
-                " elementos cargados")
+                  " elementos cargados")
             print(controller.mapSize(catalog, 'productoras'),
-                "productoras cargadas")
+                  "productoras cargadas")
             print(controller.mapSize(catalog, 'directores'),
-                "directores cargados")
+                  "directores cargados")
             print(controller.mapSize(catalog, 'actores'),
-                "actores cargados")
+                  "actores cargados")
             print(controller.mapSize(catalog, 'generos'),
-                "generos cargados")
+                  "generos cargados")
             print(controller.mapSize(catalog, 'paises'),
-                "países cargados\n")
+                  "países cargados\n")
 
         elif int(inputs[0]) == 2:
             productora = input('Productora que se quiere ver: ')
-            info2 =controller.descubrirProductoras(catalog, productora)
+            info2 = controller.descubrirProductoras(catalog, productora)
             printProductora(productora, info2)
 
         elif int(inputs[0]) == 3:
@@ -192,6 +200,7 @@ def main():
 
         else:
             sys.exit(0)
+
 
 if __name__ == "__main__":
     main()

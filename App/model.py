@@ -26,7 +26,7 @@ from time import process_time
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
-from time import process_time 
+from time import process_time
 assert config
 
 """
@@ -39,6 +39,7 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
+
 def newCatalog():
     catalog = {'peliculas': None,
                'productoras': None,
@@ -49,39 +50,40 @@ def newCatalog():
 
     catalog['peliculas'] = lt.newList('SINGLE_LINKED', compareIds)
     catalog['id'] = mp.newMap(830000,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareIds)
+                              maptype='PROBING',
+                              loadfactor=0.4,
+                              comparefunction=compareIds)
     catalog['idCast'] = mp.newMap(830000,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareIds)
+                                  maptype='PROBING',
+                                  loadfactor=0.4,
+                                  comparefunction=compareIds)
     catalog['productoras'] = mp.newMap(63000,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareProductoras)
+                                       maptype='PROBING',
+                                       loadfactor=0.4,
+                                       comparefunction=compareProductoras)
     catalog['directores'] = mp.newMap(214775,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareDirectores)
+                                      maptype='PROBING',
+                                      loadfactor=0.4,
+                                      comparefunction=compareDirectores)
     catalog['actores'] = mp.newMap(100000,
-                                maptype='CHAINING',
-                                loadfactor=0.7,
-                                comparefunction=compareActores)
+                                   maptype='CHAINING',
+                                   loadfactor=0.7,
+                                   comparefunction=compareActores)
     catalog['generos'] = mp.newMap(20,
+                                   maptype='CHAINING',
+                                   loadfactor=0.7,
+                                   comparefunction=compareGeneros)
+    catalog['paises'] = mp.newMap(400,
                                   maptype='CHAINING',
                                   loadfactor=0.7,
-                                  comparefunction=compareGeneros)
-    catalog['paises'] = mp.newMap(400,
-                                 maptype='CHAINING',
-                                 loadfactor=0.7,
-                                 comparefunction=comparePaises)
+                                  comparefunction=comparePaises)
 
     return catalog
 
+
 def newProductora(name):
-    prod = {'name': "", 
-            "peliculas": None,  
+    prod = {'name': "",
+            "peliculas": None,
             "calificacion": 0.0,
             "promedio": 0.0,
             "size": 0}
@@ -89,27 +91,30 @@ def newProductora(name):
     prod['peliculas'] = lt.newList('SINGLE_LINKED', compareProductoras)
     return prod
 
+
 def newDirector(name):
-    direct = {'name': "", 
-            "peliculas": None,  
-            "calificacion": 0.0,
-            "promedio": 0.0,
-            "size": 0}
+    direct = {'name': "",
+              "peliculas": None,
+              "calificacion": 0.0,
+              "promedio": 0.0,
+              "size": 0}
     direct['name'] = name
     direct['peliculas'] = lt.newList('SINGLE_LINKED', compareDirectores)
     return direct
 
+
 def newActor(name):
-    actor = {'name': "", 
-            "peliculas": None,  
-            "calificacion": 0.0,
-            "promedio": 0.0,
-            "size": 0,
-            "directores": [],
-            "mayorDirector": ''}
+    actor = {'name': "",
+             "peliculas": None,
+             "calificacion": 0.0,
+             "promedio": 0.0,
+             "size": 0,
+             "directores": [],
+             "mayorDirector": ''}
     actor['name'] = name
     actor['peliculas'] = lt.newList('SINGLE_LINKED', compareActores)
     return actor
+
 
 def newGenero(name):
     genero = {'name': '',
@@ -122,14 +127,16 @@ def newGenero(name):
     genero['peliculas'] = lt.newList('SINGLE_LINKED', compareGeneros)
     return genero
 
+
 def newPais(name):
     pais = {'name': '',
-              'peliculas': None,}
+            'peliculas': None}
     pais['name'] = name
     pais['peliculas'] = lt.newList('SINGLE_LINKED', comparePaises)
     return pais
 
 # Funciones para agregar informacion al catalogo
+
 
 def addMovie(catalog, pelicula):
     lt.addLast(catalog['peliculas'], pelicula)
@@ -137,11 +144,13 @@ def addMovie(catalog, pelicula):
     # print(pelicula)
     # print(pelicula['title'])
     mp.put(catalog['id'],
-     pelicula['id'], pelicula)
+           pelicula['id'], pelicula)
+
 
 def addCast(catalog, pelicula):
     mp.put(catalog['idCast'],
-     pelicula['id'], pelicula)
+           pelicula['id'], pelicula)
+
 
 def addProductora(catalog, pelicula):
     productoras = catalog['productoras']
@@ -158,6 +167,7 @@ def addProductora(catalog, pelicula):
     prod["size"] += 1
     prod["promedio"] = round(prod["calificacion"] / prod["size"], 2)
 
+
 def addDirector(catalog, pelicula):
     directores = catalog['directores']
     director = pelicula['director_name'].lower()
@@ -173,6 +183,7 @@ def addDirector(catalog, pelicula):
     dir["calificacion"] += float(peliData['vote_average'])
     dir["size"] += 1
     dir["promedio"] = round(dir["calificacion"] / dir["size"], 2)
+
 
 def addPais(catalog, pelicula):
     paises = catalog['paises']
@@ -195,8 +206,10 @@ def addPais(catalog, pelicula):
 # Funciones de consulta
 # ==============================
 
+
 def mapSize(catalog, key):
     return mp.size(catalog[key])
+
 
 def descubrirProductoras(catalog, productora):
     product = mp.get(catalog['productoras'], productora.lower())
@@ -248,6 +261,7 @@ def peliculasPais(catalog, pais):
 # Funciones de Comparacion
 # ==============================
 
+
 def compareIds(id1, id2):
     # print(id1, int(id2['value']['id']))
     if int(id1) == int(id2['value']['id']):
@@ -287,6 +301,7 @@ def compareActores(name, genero):
     else:
         return -1
 
+
 def compareGeneros(id, genero):
     generoentry = me.getKey(genero)
     if (int(id) == int(generoentry)):
@@ -296,6 +311,7 @@ def compareGeneros(id, genero):
     else:
         return -1
 
+
 def comparePaises(id, pais):
     if (id == pais['key']):
         return 0
@@ -303,4 +319,3 @@ def comparePaises(id, pais):
         return 1
     else:
         return -1
-
