@@ -26,6 +26,7 @@ from time import process_time
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from DISClib.DataStructures import linkedlistiterator as it
 from time import process_time 
 assert config
 
@@ -48,31 +49,31 @@ def newCatalog():
                'paises': None}
 
     catalog['peliculas'] = lt.newList('SINGLE_LINKED', compareIds)
-    catalog['id'] = mp.newMap(4000,
+    catalog['id'] = mp.newMap(400000,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareIds)
-    catalog['idCast'] = mp.newMap(4000,
+    catalog['idCast'] = mp.newMap(400000,
                                     maptype='PROBING',
                                     loadfactor=0.4,
                                     comparefunction=compareIds)
-    catalog['productoras'] = mp.newMap(500,
+    catalog['productoras'] = mp.newMap(50000,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareProductoras)
-    catalog['directores'] = mp.newMap(1000,
+    catalog['directores'] = mp.newMap(200000,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareDirectores)
-    catalog['actores'] = mp.newMap(1000,
+    catalog['actores'] = mp.newMap(400000,
                                 maptype='CHAINING',
                                 loadfactor=0.7,
                                 comparefunction=compareActores)
-    catalog['generos'] = mp.newMap(20,
+    catalog['generos'] = mp.newMap(200,
                                   maptype='CHAINING',
                                   loadfactor=0.7,
                                   comparefunction=compareGeneros)
-    catalog['paises'] = mp.newMap(100,
+    catalog['paises'] = mp.newMap(200,
                                  maptype='CHAINING',
                                  loadfactor=0.7,
                                  comparefunction=comparePaises)
@@ -158,6 +159,34 @@ def addProductora(catalog, pelicula):
     prod["calificacion"] += float(pelicula['vote_average'])
     prod["size"] += 1
     prod["promedio"] = round(prod["calificacion"] / prod["size"], 2)
+
+def addDirector (catalog, pelicula):
+
+    pass
+
+def addActor (catalog, pelicula):
+    actores = catalog['actores']
+    actor = lt.newList()
+    lt.addLast(actor,pelicula['actor1_name'] )
+    lt.addLast(actor,pelicula['actor2_name'] )
+    lt.addLast(actor,pelicula['actor3_name'] )
+    lt.addLast(actor,pelicula['actor4_name'] )
+    lt.addLast(actor,pelicula['actor5_name'] )
+    iterador = it.newIterator(actor)
+    while it.hasNext(iterador):
+        elemento = it.next(iterador).lower()
+        existeActor = mp.contains(actores,elemento)
+        if existeActor:
+            entry = mp.get(actores, elemento)
+            act = me.getValue(entry)
+        else:
+            act = newActor(elemento)
+            mp.put(actores, elemento, act)
+        lt.addLast(act['peliculas'], pelicula['title'])
+        act["calificacion"] += float(pelicula['vote_average'])
+        act["size"] += 1
+        act["promedio"] = round(act["calificacion"] / act["size"], 2)
+
 
 # ==============================
 # Funciones de consulta
