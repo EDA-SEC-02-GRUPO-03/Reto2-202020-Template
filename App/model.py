@@ -236,7 +236,6 @@ def peliculasPais(catalog, pais):
             id = peli[2]
             dataCast = mp.get(catalog['idCast'], id)
             director = me.getValue(dataCast)
-            print(director)
             director = director['director_name']
             lt.addLast(info, (titulo, anio, director))
         return info
