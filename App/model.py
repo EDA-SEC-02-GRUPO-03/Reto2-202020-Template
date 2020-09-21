@@ -52,6 +52,10 @@ def newCatalog():
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareIds)
+    catalog['idCast'] = mp.newMap(4000,
+                                    maptype='PROBING',
+                                    loadfactor=0.4,
+                                    comparefunction=compareIds)
     catalog['productoras'] = mp.newMap(500,
                                    maptype='PROBING',
                                    loadfactor=0.4,
@@ -135,6 +139,10 @@ def addMovie(catalog, pelicula):
     # print(pelicula['title'])
     mp.put(catalog['id'],
      pelicula['id'], pelicula)
+
+def addCast(catalog, pelicula):
+    mp.put(catalog['idCast'],
+    pelicula['id'], pelicula)
 
 def addProductora(catalog, pelicula):
     productoras = catalog['productoras']
