@@ -91,6 +91,7 @@ def loadCasting(catalog, fileC, sep=';'):
     with open(fileC, encoding="utf-8-sig") as csvfile:
         input_file = csv.DictReader(csvfile, dialect=dialect)
         for movie in input_file:
+            model.addCast(catalog, movie)
             director = movie['director_name']
             if director == 'none':
                 pass
