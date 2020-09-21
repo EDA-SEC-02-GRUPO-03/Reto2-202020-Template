@@ -68,6 +68,10 @@ def loadDetails(catalog, fileD, sep = ';'):
 
             # if ahhhh % 5000 == 0:
             #     print(ahhhh, movie['id'])
+            #     print(mapSize(catalog, 'productoras'),
+            #         "productoras")
+            #     print(mapSize(catalog, 'paises'),
+            #         "países cargados\n")
             # ahhhh += 1
             
             productora = movie['production_companies']
@@ -93,6 +97,7 @@ def loadCasting(catalog, fileC, sep=';'):
     t1_start = process_time() #tiempo inicial
     dialect = csv.excel()
     dialect.delimiter=sep
+    # ahhhh = 0
     with open(fileC, encoding="utf-8-sig") as csvfile:
         input_file = csv.DictReader(csvfile, dialect=dialect)
         for movie in input_file:
@@ -102,6 +107,13 @@ def loadCasting(catalog, fileC, sep=';'):
                 pass
             else:
                 model.addDirector(catalog, movie)
+
+            # if ahhhh % 5000 == 0:
+            #     print(ahhhh, movie['id'])
+            #     print(mapSize(catalog, 'directores'),
+            #         "directores cargados\n")
+            # ahhhh += 1
+
             # actor1 = movie['actor1_name']
             # if actor1 == 'none':
             #     pass

@@ -38,12 +38,12 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-# fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
-# fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
+fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
+fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
 # fileD = 'Data\\theMoviesdb\\SmallMoviesDetailsCleaned.csv'
 # fileC = 'Data\\theMoviesdb\\MoviesCastingRaw-small.csv'
-fileD = 'Data\\theMoviesdb\\short.csv'
-fileC = 'Data\\theMoviesdb\\shortcasting.csv'
+# fileD = 'Data\\theMoviesdb\\short.csv'
+# fileC = 'Data\\theMoviesdb\\shortcasting.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la información de
@@ -58,7 +58,7 @@ def printProductora(productora, info):
         size = info['size']
         prom = info['promedio']
         print('Las películas de', productora, 'son:')
-        for i in range(1, lt.size(peliculas)):
+        for i in range(1, lt.size(peliculas)+1):
             print('-'+ lt.getElement(peliculas, i))
         print('\nTotal películas:', size)
         print('Promedio de las películas:', prom)
@@ -90,7 +90,7 @@ def printActor(actor, info):
         prom = info['promedio']
         director = info['mayorDirector']
         print(actor, 'participó en:')
-        for i in range(1, lt.size(peliculas)):
+        for i in range(1, lt.size(peliculas)+1):
             print('-'+ lt.getElement(peliculas, i))
         print('\nTotal participaciones:', size)
         print('Promedio de las películas:', prom)
@@ -103,7 +103,7 @@ def printGenero(genero, info):
     print("-"*35)
     if info: 
         print('Películas clasificadas como:', genero)
-        for i in range(1, lt.size(info[0])):
+        for i in range(1, lt.size(info[0]+1)):
             print('-'+ lt.getElement(info[0], i))
         print('\nTotal películas:', info[1])
         print('Promedio de cantidad de votos:', info[2])
@@ -115,9 +115,9 @@ def printPais(pais, info):
     print("-"*35)
     if info: 
         print('Películas producidas en:', pais)
-        for i in range(1, lt.size(info)):
+        for i in range(1, (lt.size(info))+1):
             data = lt.getElement(info, i)
-            print(data[0], data[1], data[2])
+            print(data[0], '(', data[1], ') por:', data[2])
     else:
         print('No se encontró el país')
     print("-"*35)
@@ -155,7 +155,7 @@ def main():
             print("Datos cargados,", controller.mapSize(catalog, 'id'),
                 " elementos cargados")
             print(controller.mapSize(catalog, 'productoras'),
-                "productoras cargados")
+                "productoras cargadas")
             print(controller.mapSize(catalog, 'directores'),
                 "directores cargados")
             print(controller.mapSize(catalog, 'actores'),
@@ -163,7 +163,7 @@ def main():
             print(controller.mapSize(catalog, 'generos'),
                 "generos cargados")
             print(controller.mapSize(catalog, 'paises'),
-                "países cargados")
+                "países cargados\n")
 
         elif int(inputs[0]) == 2:
             productora = input('Productora que se quiere ver: ')

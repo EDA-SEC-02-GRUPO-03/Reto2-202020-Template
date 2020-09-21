@@ -48,23 +48,23 @@ def newCatalog():
                'paises': None}
 
     catalog['peliculas'] = lt.newList('SINGLE_LINKED', compareIds)
-    catalog['id'] = mp.newMap(4000,
-                                   maptype='PROBING',
+    catalog['id'] = mp.newMap(830000,
+                                   maptype='CHAINING',
                                    loadfactor=0.4,
                                    comparefunction=compareIds)
-    catalog['idCast'] = mp.newMap(4000,
-                                   maptype='PROBING',
+    catalog['idCast'] = mp.newMap(830000,
+                                   maptype='CHAINING',
                                    loadfactor=0.4,
                                    comparefunction=compareIds)
-    catalog['productoras'] = mp.newMap(1000,
+    catalog['productoras'] = mp.newMap(63000,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareProductoras)
-    catalog['directores'] = mp.newMap(1000,
+    catalog['directores'] = mp.newMap(214775,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareDirectores)
-    catalog['actores'] = mp.newMap(1000,
+    catalog['actores'] = mp.newMap(100000,
                                 maptype='CHAINING',
                                 loadfactor=0.7,
                                 comparefunction=compareActores)
@@ -72,7 +72,7 @@ def newCatalog():
                                   maptype='CHAINING',
                                   loadfactor=0.7,
                                   comparefunction=compareGeneros)
-    catalog['paises'] = mp.newMap(100,
+    catalog['paises'] = mp.newMap(400,
                                  maptype='CHAINING',
                                  loadfactor=0.7,
                                  comparefunction=comparePaises)
@@ -188,6 +188,7 @@ def addPais(catalog, pelicula):
     titulo = peliData['title']
     anio = peliData['release_date'][-4:]
     id = peliData['id']
+
     lt.addLast(dir['peliculas'], (titulo, anio, id))
 
 # ==============================
@@ -229,7 +230,7 @@ def peliculasPais(catalog, pais):
         info = lt.newList()
         base = me.getValue(data)
         peliculas = base['peliculas']
-        for i in range(lt.size(peliculas)):
+        for i in range(1, lt.size(peliculas)+1):
             peli = lt.getElement(peliculas, i)
             titulo = peli[0]
             anio = peli[1]
@@ -238,6 +239,8 @@ def peliculasPais(catalog, pais):
             director = me.getValue(dataCast)
             director = director['director_name']
             lt.addLast(info, (titulo, anio, director))
+        # lt.removeFirst(info)
+        # lt.removeFirst(info)
         return info
     pass
 
@@ -294,10 +297,6 @@ def compareGeneros(id, genero):
         return -1
 
 def comparePaises(id, pais):
-    # paisentry = me.getKey(pais)
-    # print(id, pais['key'],paisentry)
-    # print(id == pais['key'])
-    # print(id == paisentry)
     if (id == pais['key']):
         return 0
     elif (id > pais['key']):
