@@ -74,7 +74,7 @@ def printDirector(director, info):
         size = info['size']
         prom = info['promedio']
         print('Las películas dirigidas por', director, 'son:')
-        for i in range(1, lt.size(peliculas)):
+        for i in range(1, lt.size(peliculas) + 1):
             print('-'+ lt.getElement(peliculas, i))
         print('\nTotal películas:', size)
         print('Promedio de las películas:', prom)
