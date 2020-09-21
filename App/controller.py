@@ -114,31 +114,31 @@ def loadCasting(catalog, fileC, sep=';'):
             #         "directores cargados\n")
             # ahhhh += 1
 
-            # actor1 = movie['actor1_name']
-            # if actor1 == 'none':
-            #     pass
-            # else:
-            #     pass
-            # actor2 = movie['actor2_name']
-            # if actor2 == 'none':
-            #     pass
-            # else:
-            #     pass
-            # actor3 = movie['actor3_name']
-            # if actor3 == 'none':
-            #     pass
-            # else:
-            #     pass
-            # actor4 = movie['actor4_name']
-            # if actor4 == 'none':
-            #     pass
-            # else:
-            #     pass
-            # actor5 = movie['actor5_name']
-            # if actor5 == 'none':
-            #     pass
-            # else:
-            #     pass
+            actor1 = movie['actor1_name']
+            if actor1 == 'none':
+                pass
+            else:
+                pass
+            actor2 = movie['actor2_name']
+            if actor2 == 'none':
+                pass
+            else:
+                pass
+            actor3 = movie['actor3_name']
+            if actor3 == 'none':
+                pass
+            else:
+                pass
+            actor4 = movie['actor4_name']
+            if actor4 == 'none':
+                pass
+            else:
+                pass
+            actor5 = movie['actor5_name']
+            if actor5 == 'none':
+                pass
+            else:
+                pass
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
 
