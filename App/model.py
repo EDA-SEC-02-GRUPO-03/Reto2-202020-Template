@@ -49,11 +49,11 @@ def newCatalog():
 
     catalog['peliculas'] = lt.newList('SINGLE_LINKED', compareIds)
     catalog['id'] = mp.newMap(830000,
-                                   maptype='CHAINING',
+                                   maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareIds)
     catalog['idCast'] = mp.newMap(830000,
-                                   maptype='CHAINING',
+                                   maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareIds)
     catalog['productoras'] = mp.newMap(63000,
