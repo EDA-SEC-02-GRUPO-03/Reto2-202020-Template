@@ -65,15 +65,15 @@ def newCatalog():
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareDirectores)
-    catalog['actores'] = mp.newMap(830000,
-                                maptype='CHAINING',
-                                loadfactor=0.7,
+    catalog['actores'] = mp.newMap(800000,
+                                maptype='PROBING',
+                                loadfactor=0.4,
                                 comparefunction=compareActores)
     catalog['generos'] = mp.newMap(200,
                                   maptype='CHAINING',
                                   loadfactor=0.7,
                                   comparefunction=compareGeneros)
-    catalog['paises'] = mp.newMap(600,
+    catalog['paises'] = mp.newMap(300,
                                  maptype='CHAINING',
                                  loadfactor=0.7,
                                  comparefunction=comparePaises)
@@ -102,12 +102,13 @@ def newDirector(name):
 
 def newActor(name):
     actor = {'name': "", 
-            "peliculas": None,  
+            "peliculas": lt.newList(),  
             "calificacion": 0.0,
             "promedio": 0.0,
             "size": 0,
-            "directores": [],
-            "mayorDirector": ''}
+            "directores": lt.newList(),
+            "mayor director": ''
+            }
     actor['name'] = name
     actor['peliculas'] = lt.newList('SINGLE_LINKED', compareActores)
     return actor
@@ -176,7 +177,6 @@ def addActor (catalog, pelicula, n):
         actor = pelicula['actor4_name'] 
     else: 
         actor = pelicula['actor5_name'] 
-
     existeActor = mp.contains(actores, actor)
     if existeActor:
         entry = mp.get(actores, actor)
@@ -184,12 +184,21 @@ def addActor (catalog, pelicula, n):
     else:
         act = newActor(actor)
         mp.put(actores, actor, act)
-    lt.addLast(act['peliculas'], pelicula['id'])
-    if lt.isPresent(act['directores'], pelicula['directores'])
+    peliData = me.getValue( mp.get(catalog['id'], pelicula['id']))
+    lt.addLast(act['peliculas'], peliData['title'])
+    act["calificacion"] += float(peliData['vote_average'])
     act["size"] += 1
-    
-
-
+    act["promedio"] = round(act["calificacion"] / act["size"], 2)
+    lt.addLast(act['directores'],[pelicula['director_name'],1])
+    cont = 0
+    for i in range(lt.size(act['directores'])):
+        if lt.getElement(act['directores'],i)[1] > cont:
+            cont = lt.getElement(act['directores'],i)[1] 
+            act['mayor director'] = lt.getElement(act['directores'],i)[0]
+        if pelicula['director_name'] == lt.getElement(act['directores'],i)[0]:
+            lt.getElement(act['directores'],i)[1] += 1
+            lt.removeLast(act['directores'])
+            
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -206,13 +215,17 @@ def descubrirProductoras(catalog, productora):
 
 
 def conocerDirector(catalog, director):
-
+    
     pass
 
 
 def conocerActor(catalog, actor):
-
-    pass
+    product = mp.get(catalog['actores'], actor.lower())
+    if product:
+        info = me.getValue(product)
+        return info
+    return None
+    
 
 
 def entenderGenero(catalog, genero):

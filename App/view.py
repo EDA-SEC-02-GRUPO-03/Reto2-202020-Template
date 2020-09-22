@@ -87,7 +87,7 @@ def printActor(actor, info):
         peliculas = info['peliculas']
         size = info['size']
         prom = info['promedio']
-        director = info['mayorDirector']
+        director = info['mayor director']
         print(actor, 'participó en:')
         for i in range(1, lt.size(peliculas)):
             print('-'+ lt.getElement(peliculas, i))
