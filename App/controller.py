@@ -89,9 +89,10 @@ def loadDetails(catalog, fileD, sep=';'):
             else:
                 model.addPais(catalog, movie)
 
-            # generos = movie['genres'].split('|')
-            # for genero in generos:
-            #     pass
+            generos = movie['genres'].split('|')
+            if generos:
+                for genero in generos:
+                    model.addGenero(catalog, movie, genero.lower())
     t1_stop = process_time()  # tiempo final
     print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
 

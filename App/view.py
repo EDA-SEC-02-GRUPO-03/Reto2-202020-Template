@@ -38,12 +38,12 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
-fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
+# fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
+# fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
 # fileD = 'Data\\theMoviesdb\\SmallMoviesDetailsCleaned.csv'
 # fileC = 'Data\\theMoviesdb\\MoviesCastingRaw-small.csv'
-# fileD = 'Data\\theMoviesdb\\short.csv'
-# fileC = 'Data\\theMoviesdb\\shortcasting.csv'
+fileD = 'Data\\theMoviesdb\\short.csv'
+fileC = 'Data\\theMoviesdb\\shortcasting.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la información de
@@ -104,12 +104,15 @@ def printActor(actor, info):
 
 def printGenero(genero, info):
     print("-"*35)
+    peliculas = info['peliculas']
+    size = info['size']
+    votos = info['cantVotos']
     if info:
         print('Películas clasificadas como:', genero)
-        for i in range(1, lt.size(info[0]+1)):
-            print('-' + lt.getElement(info[0], i))
-        print('\nTotal películas:', info[1])
-        print('Promedio de cantidad de votos:', info[2])
+        for i in range(1, lt.size(peliculas)+1):
+            print('-' + lt.getElement(peliculas, i))
+        print('\nTotal películas:', size)
+        print('Promedio de cantidad de votos:', votos)
     else:
         print('No se encontró el género')
     print("-"*35)

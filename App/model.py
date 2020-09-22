@@ -19,6 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
+
 import csv
 import config
 import csv
@@ -118,9 +119,8 @@ def newActor(name):
 
 def newGenero(name):
     genero = {'name': '',
-              'numPeliculas': 0,
               'peliculas': None,
-              "promedio": 0.0,
+              "promedio": 0,
               "size": 0,
               'cantVotos': 0}
     genero['name'] = name
@@ -185,6 +185,21 @@ def addDirector(catalog, pelicula):
     dir["promedio"] = round(dir["calificacion"] / dir["size"], 2)
 
 
+def addGenero(catalog, pelicula, genero):
+    generos = catalog['generos']
+    existeGenero = mp.contains(generos, genero)
+    if existeGenero:
+        entry = mp.get(generos, genero)
+        gen = me.getValue(entry)
+    else:
+        gen = newGenero(genero)
+        mp.put(generos, genero, gen)
+    lt.addLast(gen['peliculas'], pelicula['title'])
+    gen["cantVotos"] += int(pelicula['vote_count'])
+    gen["size"] += 1
+    gen["promedio"] = round(gen["cantVotos"] / gen["size"], 2)
+
+
 def addPais(catalog, pelicula):
     paises = catalog['paises']
     pais = pelicula['production_countries'].lower()
@@ -233,8 +248,11 @@ def conocerActor(catalog, actor):
 
 
 def entenderGenero(catalog, genero):
-
-    pass
+    gen = mp.get(catalog['generos'], genero.lower())
+    if gen:
+        info = me.getValue(gen)
+        return info
+    return None
 
 
 def peliculasPais(catalog, pais):
@@ -304,9 +322,9 @@ def compareActores(name, genero):
 
 def compareGeneros(id, genero):
     generoentry = me.getKey(genero)
-    if (int(id) == int(generoentry)):
+    if (id == generoentry):
         return 0
-    elif (int(id) > int(generoentry)):
+    elif (id > generoentry):
         return 1
     else:
         return -1
