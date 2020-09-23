@@ -119,7 +119,7 @@ def newGenero(name):
               "size": 0,
               'cantVotos': 0}
     genero['name'] = name
-    genero['books'] = lt.newList('SINGLE_LINKED', compareGeneros)
+    genero['peliculas'] = lt.newList('SINGLE_LINKED', compareGeneros)
     return genero
 
 def newPais(name):
@@ -159,6 +159,22 @@ def addProductora(catalog, pelicula):
     prod["size"] += 1
     prod["promedio"] = round(prod["calificacion"] / prod["size"], 2)
 
+def addGenero(catalog, pelicula, genero):
+    generos = catalog["generos"] # Guarda map de géneros llamándolo del catálogo
+    existeGenero = mp.contains(generos, genero) # Pregunta si el género dado por parámetro existe ya en el map
+
+    if existeGenero:
+        entry = mp.get(generos, genero) 
+        genre = me.getValue(entry)
+    else: 
+        genre = newGenero(genero)
+        mp.put(generos, genero, genre)
+
+    lt.addLast(genre["peliculas"], pelicula["title"])
+    genre["cantVotos"] += int(pelicula["vote_count"])
+    genre["size"] += 1
+    genre["promedio"] = round(genre["cantVotos"]/genre["size"], 2)
+
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -185,8 +201,12 @@ def conocerActor(catalog, actor):
 
 
 def entenderGenero(catalog, genero):
-
-    pass
+    genre = mp.get(catalog['generos'], genero.lower())
+    if genre:
+        info = me.getValue(genre)
+        return info
+    else: 
+        return None
 
 
 def peliculasPais(catalog, pais):
@@ -238,9 +258,9 @@ def compareActores(name, genero):
 
 def compareGeneros(id, genero):
     generoentry = me.getKey(genero)
-    if (int(id) == int(generoentry)):
+    if (id == generoentry):
         return 0
-    elif (int(id) > int(generoentry)):
+    elif (id > generoentry):
         return 1
     else:
         return -1
