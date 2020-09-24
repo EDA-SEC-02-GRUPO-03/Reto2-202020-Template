@@ -19,6 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
+
 import csv
 import config
 import csv
@@ -39,6 +40,7 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
+
 def newCatalog():
     catalog = {'peliculas': None,
                'productoras': None,
@@ -48,36 +50,37 @@ def newCatalog():
                'paises': None}
 
     catalog['peliculas'] = lt.newList('SINGLE_LINKED', compareIds)
-    catalog['id'] = mp.newMap(4000,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareIds)
-    catalog['idCast'] = mp.newMap(4000,
-                                    maptype='PROBING',
-                                    loadfactor=0.4,
-                                    comparefunction=compareIds)
-    catalog['productoras'] = mp.newMap(500,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareProductoras)
-    catalog['directores'] = mp.newMap(1000,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareDirectores)
-    catalog['actores'] = mp.newMap(1000,
-                                maptype='CHAINING',
-                                loadfactor=0.7,
-                                comparefunction=compareActores)
-    catalog['generos'] = mp.newMap(20,
+    catalog['id'] = mp.newMap(830000,
+                              maptype='PROBING',
+                              loadfactor=0.4,
+                              comparefunction=compareIds)
+    catalog['idCast'] = mp.newMap(830000,
+                                  maptype='PROBING',
+                                  loadfactor=0.4,
+                                  comparefunction=compareIds)
+    catalog['productoras'] = mp.newMap(63000,
+                                       maptype='PROBING',
+                                       loadfactor=0.4,
+                                       comparefunction=compareProductoras)
+    catalog['directores'] = mp.newMap(214775,
+                                      maptype='PROBING',
+                                      loadfactor=0.4,
+                                      comparefunction=compareDirectores)
+    catalog['actores'] = mp.newMap(100000,
+                                   maptype='CHAINING',
+                                   loadfactor=0.7,
+                                   comparefunction=compareActores)
+    catalog['generos'] = mp.newMap(40,
+                                   maptype='CHAINING',
+                                   loadfactor=0.7,
+                                   comparefunction=compareGeneros)
+    catalog['paises'] = mp.newMap(400,
                                   maptype='CHAINING',
                                   loadfactor=0.7,
-                                  comparefunction=compareGeneros)
-    catalog['paises'] = mp.newMap(100,
-                                 maptype='CHAINING',
-                                 loadfactor=0.7,
-                                 comparefunction=comparePaises)
+                                  comparefunction=comparePaises)
 
     return catalog
+
 
 def newProductora(name):
     prod = {'name': "",
@@ -89,31 +92,33 @@ def newProductora(name):
     prod['peliculas'] = lt.newList('SINGLE_LINKED', compareProductoras)
     return prod
 
+
 def newDirector(name):
     direct = {'name': "",
-            "peliculas": None,
-            "calificacion": 0.0,
-            "promedio": 0.0,
-            "size": 0}
+              "peliculas": None,
+              "calificacion": 0.0,
+              "promedio": 0.0,
+              "size": 0}
     direct['name'] = name
     direct['peliculas'] = lt.newList('SINGLE_LINKED', compareDirectores)
     return direct
 
+
 def newActor(name):
     actor = {'name': "",
-            "peliculas": None,
-            "calificacion": 0.0,
-            "promedio": 0.0,
-            "size": 0,
-            "directores": [],
-            "mayorDirector": ''}
+             "peliculas": None,
+             "calificacion": 0.0,
+             "promedio": 0.0,
+             "size": 0,
+             "directores": [],
+             "mayorDirector": ''}
     actor['name'] = name
     actor['peliculas'] = lt.newList('SINGLE_LINKED', compareActores)
     return actor
 
+
 def newGenero(name):
     genero = {'name': '',
-              'numPeliculas': 0,
               'peliculas': None,
               "promedio": 0,
               "size": 0,
@@ -122,15 +127,16 @@ def newGenero(name):
     genero['peliculas'] = lt.newList('SINGLE_LINKED', compareGeneros)
     return genero
 
+
 def newPais(name):
     pais = {'name': '',
-              'numPeliculas': 0,
-              'peliculas': None,}
+            'peliculas': None}
     pais['name'] = name
-    pais['books'] = lt.newList('SINGLE_LINKED', comparePaises)
+    pais['peliculas'] = lt.newList('SINGLE_LINKED', comparePaises)
     return pais
 
 # Funciones para agregar informacion al catalogo
+
 
 def addMovie(catalog, pelicula):
     lt.addLast(catalog['peliculas'], pelicula)
@@ -138,7 +144,13 @@ def addMovie(catalog, pelicula):
     # print(pelicula)
     # print(pelicula['title'])
     mp.put(catalog['id'],
-     pelicula['id'], pelicula)
+           pelicula['id'], pelicula)
+
+
+def addCast(catalog, pelicula):
+    mp.put(catalog['idCast'],
+           pelicula['id'], pelicula)
+
 
 def addCast(catalog, pelicula):
     mp.put(catalog['idCast'],
@@ -160,10 +172,26 @@ def addProductora(catalog, pelicula):
     prod["promedio"] = round(prod["calificacion"] / prod["size"], 2)
 
 
-def addGenero(catalog, pelicula, genero):
-    generos = catalog["generos"] # Guarda map de géneros llamándolo del catálogo
-    existeGenero = mp.contains(generos, genero) # Pregunta si el género dado por parámetro existe ya en el map
+def addDirector(catalog, pelicula):
+    directores = catalog['directores']
+    director = pelicula['director_name'].lower()
+    existeDirector = mp.contains(directores, director)
+    if existeDirector:
+        entry = mp.get(directores, director)
+        dir = me.getValue(entry)
+    else:
+        dir = newDirector(director)
+        mp.put(directores, director, dir)
+    peliData = me.getValue(mp.get(catalog['id'], pelicula['id']))
+    lt.addLast(dir['peliculas'], peliData['title'])
+    dir["calificacion"] += float(peliData['vote_average'])
+    dir["size"] += 1
+    dir["promedio"] = round(dir["calificacion"] / dir["size"], 2)
 
+
+def addGenero(catalog, pelicula, genero):
+    generos = catalog["generos"]  # Guarda map de géneros llamándolo del catálogo
+    existeGenero = mp.contains(generos, genero)  # Pregunta si el género dado por parámetro existe ya en el map
     if existeGenero:
         entry = mp.get(generos, genero)
         genre = me.getValue(entry)
@@ -176,12 +204,32 @@ def addGenero(catalog, pelicula, genero):
     genre["size"] += 1
     genre["promedio"] = round(genre["cantVotos"]/genre["size"])
 
+
+def addPais(catalog, pelicula):
+    paises = catalog['paises']
+    pais = pelicula['production_countries'].lower()
+    existePais = mp.contains(paises, pais)
+    if existePais:
+        entry = mp.get(paises, pais)
+        dir = me.getValue(entry)
+    else:
+        dir = newDirector(pais)
+        mp.put(paises, pais, dir)
+    peliData = me.getValue(mp.get(catalog['id'], pelicula['id']))
+    titulo = peliData['title']
+    anio = peliData['release_date'][-4:]
+    id = peliData['id']
+
+    lt.addLast(dir['peliculas'], (titulo, anio, id))
+
 # ==============================
 # Funciones de consulta
 # ==============================
 
+
 def mapSize(catalog, key):
     return mp.size(catalog[key])
+
 
 def descubrirProductoras(catalog, productora):
     product = mp.get(catalog['productoras'], productora.lower())
@@ -192,8 +240,11 @@ def descubrirProductoras(catalog, productora):
 
 
 def conocerDirector(catalog, director):
-
-    pass
+    dir = mp.get(catalog['directores'], director.lower())
+    if dir:
+        info = me.getValue(dir)
+        return info
+    return None
 
 
 def conocerActor(catalog, actor):
@@ -211,12 +262,29 @@ def entenderGenero(catalog, genero):
 
 
 def peliculasPais(catalog, pais):
-
+    data = mp.get(catalog['paises'], pais.lower())
+    if data:
+        info = lt.newList()
+        base = me.getValue(data)
+        peliculas = base['peliculas']
+        for i in range(1, lt.size(peliculas)+1):
+            peli = lt.getElement(peliculas, i)
+            titulo = peli[0]
+            anio = peli[1]
+            id = peli[2]
+            dataCast = mp.get(catalog['idCast'], id)
+            director = me.getValue(dataCast)
+            director = director['director_name']
+            lt.addLast(info, (titulo, anio, director))
+        # lt.removeFirst(info)
+        # lt.removeFirst(info)
+        return info
     pass
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
 
 def compareIds(id1, id2):
     # print(id1, int(id2['value']['id']))
@@ -257,6 +325,7 @@ def compareActores(name, genero):
     else:
         return -1
 
+
 def compareGeneros(id, genero):
     generoentry = me.getKey(genero)
     if (id == generoentry):
@@ -266,12 +335,11 @@ def compareGeneros(id, genero):
     else:
         return -1
 
-def comparePaises(id, genero):
-    generoentry = me.getKey(genero)
-    if (id == generoentry):
+
+def comparePaises(id, pais):
+    if (id == pais['key']):
         return 0
-    elif (id > generoentry):
+    elif (id > pais['key']):
         return 1
     else:
         return -1
-
