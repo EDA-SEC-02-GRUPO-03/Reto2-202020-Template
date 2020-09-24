@@ -106,14 +106,14 @@ def newDirector(name):
 
 def newActor(name):
     actor = {'name': "",
-            "peliculas": lt.newList(),
-            "calificacion": 0.0,
-            "promedio": 0.0,
-            "size": 0,
-            "directores": lt.newList(),
-            "mayor director": ['',0]
-            }
-    actor['name'] = name.lower()
+             "peliculas": lt.newList(),
+             "calificacion": 0.0,
+             "promedio": 0.0,
+             "size": 0,
+             "directores": lt.newList(),
+             "mayor director": ['', 0]
+             }
+    actor['name'] = name
     actor['peliculas'] = lt.newList('SINGLE_LINKED', compareActores)
     return actor
 
@@ -224,7 +224,7 @@ def addActor(catalog, pelicula, n):
     actores = catalog['actores']
     if n == 1:
         actor = pelicula['actor1_name']
-    elif n ==2:
+    elif n == 2:
         actor = pelicula['actor2_name']
     elif n == 3:
         actor = pelicula['actor3_name']
@@ -241,7 +241,7 @@ def addActor(catalog, pelicula, n):
     else:
         act = newActor(actor)
         mp.put(actores, actor, act)
-    peliData = me.getValue( mp.get(catalog['id'], pelicula['id']))
+    peliData = me.getValue(mp.get(catalog['id'], pelicula['id']))
     lt.addLast(act['peliculas'], peliData['title'])
     act["calificacion"] += float(peliData['vote_average'])
     act["size"] += 1
@@ -250,20 +250,22 @@ def addActor(catalog, pelicula, n):
     if pelicula['director_name'] == 'none':
         pass
     elif lt.size(act['directores']) == 0:
-        lt.addLast(act['directores'],[pelicula['director_name'],1])
-        act['mayor director'] = lt.getElement(act['directores'],1)
+        lt.addLast(act['directores'], [pelicula['director_name'], 1])
+        act['mayor director'] = lt.getElement(act['directores'], 1)
 
     else:
         bo = False
-        for i in range(1,lt.size(act['directores'])+1):
-            if pelicula['director_name'] == lt.getElement(act['directores'],i)[0]:
-                a = lt.getElement(act['directores'],i)
-                lt.changeInfo(act['directores'],i,[a[0],a[1]+1])
+        for i in range(1, lt.size(act['directores'])+1):
+            if pelicula['director_name'] == lt.getElement(act['directores'],
+                                                          i)[0]:
+                a = lt.getElement(act['directores'], i)
+                lt.changeInfo(act['directores'], i, [a[0], a[1]+1])
                 bo = True
-                if lt.getElement(act['directores'],i)[1] > act['mayor director'][1]:
-                    act['mayor director'] = lt.getElement(act['directores'],i)
+                if lt.getElement(act['directores'], i)[1] > \
+                   act['mayor director'][1]:
+                    act['mayor director'] = lt.getElement(act['directores'], i)
         if not bo:
-            lt.addLast(act['directores'],[pelicula['director_name'],1])
+            lt.addLast(act['directores'], [pelicula['director_name'], 1])
 
     print (act)
 
