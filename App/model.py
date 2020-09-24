@@ -113,7 +113,7 @@ def newActor(name):
             "directores": lt.newList(),
             "mayor director": ['',0]
             }
-    actor['name'] = name
+    actor['name'] = name.lower()
     actor['peliculas'] = lt.newList('SINGLE_LINKED', compareActores)
     return actor
 
@@ -233,6 +233,7 @@ def addActor(catalog, pelicula, n):
     else:
         actor = pelicula['actor5_name']
 
+    actor = actor.lower()
     existeActor = mp.contains(actores, actor)
     if existeActor:
         entry = mp.get(actores, actor)
@@ -263,6 +264,8 @@ def addActor(catalog, pelicula, n):
                     act['mayor director'] = lt.getElement(act['directores'],i)
         if not bo:
             lt.addLast(act['directores'],[pelicula['director_name'],1])
+
+    print (act)
 
 
 # ==============================

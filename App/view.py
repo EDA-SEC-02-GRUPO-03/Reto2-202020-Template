@@ -39,12 +39,9 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-# fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
-# fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
-fileD = 'Data/theMoviesdb/SmallMoviesDetailsCleaned.csv'
-fileC = 'Data/theMoviesdb/MoviesCastingRaw-small.csv'
-# fileD = 'Data\\theMoviesdb\\short.csv'
-# fileC = 'Data\\theMoviesdb\\shortcasting.csv'
+fileD = 'Data\SmallMoviesDetailsCleaned.csv'
+fileC = 'Data\MoviesCastingRaw-small.csv'
+
 
 # ___________________________________________________
 #  Funciones para imprimir la información de
