@@ -66,8 +66,8 @@ def newCatalog():
                                       maptype='PROBING',
                                       loadfactor=0.4,
                                       comparefunction=compareDirectores)
-    catalog['actores'] = mp.newMap(100000,
-                                   maptype='CHAINING',
+    catalog['actores'] = mp.newMap(800000,
+                                   maptype='PROBING',
                                    loadfactor=0.7,
                                    comparefunction=compareActores)
     catalog['generos'] = mp.newMap(40,
@@ -106,12 +106,13 @@ def newDirector(name):
 
 def newActor(name):
     actor = {'name': "",
-             "peliculas": None,
-             "calificacion": 0.0,
-             "promedio": 0.0,
-             "size": 0,
-             "directores": [],
-             "mayorDirector": ''}
+            "peliculas": lt.newList(),
+            "calificacion": 0.0,
+            "promedio": 0.0,
+            "size": 0,
+            "directores": lt.newList(),
+            "mayor director": ['',0]
+            }
     actor['name'] = name
     actor['peliculas'] = lt.newList('SINGLE_LINKED', compareActores)
     return actor
@@ -151,10 +152,6 @@ def addCast(catalog, pelicula):
     mp.put(catalog['idCast'],
            pelicula['id'], pelicula)
 
-
-def addCast(catalog, pelicula):
-    mp.put(catalog['idCast'],
-    pelicula['id'], pelicula)
 
 def addProductora(catalog, pelicula):
     productoras = catalog['productoras']
@@ -222,6 +219,52 @@ def addPais(catalog, pelicula):
 
     lt.addLast(dir['peliculas'], (titulo, anio, id))
 
+
+def addActor(catalog, pelicula, n):
+    actores = catalog['actores']
+    if n == 1:
+        actor = pelicula['actor1_name']
+    elif n ==2:
+        actor = pelicula['actor2_name']
+    elif n == 3:
+        actor = pelicula['actor3_name']
+    elif n == 4:
+        actor = pelicula['actor4_name']
+    else:
+        actor = pelicula['actor5_name']
+
+    existeActor = mp.contains(actores, actor)
+    if existeActor:
+        entry = mp.get(actores, actor)
+        act = me.getValue(entry)
+    else:
+        act = newActor(actor)
+        mp.put(actores, actor, act)
+    peliData = me.getValue( mp.get(catalog['id'], pelicula['id']))
+    lt.addLast(act['peliculas'], peliData['title'])
+    act["calificacion"] += float(peliData['vote_average'])
+    act["size"] += 1
+    act["promedio"] = round(act["calificacion"] / act["size"], 2)
+
+    if pelicula['director_name'] == 'none':
+        pass
+    elif lt.size(act['directores']) == 0:
+        lt.addLast(act['directores'],[pelicula['director_name'],1])
+        act['mayor director'] = lt.getElement(act['directores'],1)
+
+    else:
+        bo = False
+        for i in range(1,lt.size(act['directores'])+1):
+            if pelicula['director_name'] == lt.getElement(act['directores'],i)[0]:
+                a = lt.getElement(act['directores'],i)
+                lt.changeInfo(act['directores'],i,[a[0],a[1]+1])
+                bo = True
+                if lt.getElement(act['directores'],i)[1] > act['mayor director'][1]:
+                    act['mayor director'] = lt.getElement(act['directores'],i)
+        if not bo:
+            lt.addLast(act['directores'],[pelicula['director_name'],1])
+
+
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -248,8 +291,11 @@ def conocerDirector(catalog, director):
 
 
 def conocerActor(catalog, actor):
-
-    pass
+    product = mp.get(catalog['actores'], actor.lower())
+    if product:
+        info = me.getValue(product)
+        return info
+    return None
 
 
 def entenderGenero(catalog, genero):
@@ -276,8 +322,6 @@ def peliculasPais(catalog, pais):
             director = me.getValue(dataCast)
             director = director['director_name']
             lt.addLast(info, (titulo, anio, director))
-        # lt.removeFirst(info)
-        # lt.removeFirst(info)
         return info
     pass
 
@@ -287,7 +331,6 @@ def peliculasPais(catalog, pais):
 
 
 def compareIds(id1, id2):
-    # print(id1, int(id2['value']['id']))
     if int(id1) == int(id2['value']['id']):
         return 0
     elif int(id1) > int(id2['value']['id']):
