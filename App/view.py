@@ -87,6 +87,7 @@ def printDirector(director, info):
 
 def printActor(actor, info):
     print("-"*35)
+
     if info:
         peliculas = info['peliculas']
         size = info['size']
@@ -97,7 +98,8 @@ def printActor(actor, info):
             print('-' + lt.getElement(peliculas, i))
         print('\nTotal participaciones:', size)
         print('Promedio de las películas:', prom)
-        print('El director con quien más a colaborado es:', director)
+        print('El director con quien más ha colaborado es:', director[0])
+        print('Ha colaborado 'director[1]' veces con este director')
     else:
         print('No se encontró el actor')
     print("-"*35)
