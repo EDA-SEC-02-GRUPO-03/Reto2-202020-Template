@@ -130,6 +130,7 @@ def loadCasting(catalog, fileC, sep=';'):
 def mapSize(catalog, key):
     return model.mapSize(catalog, key)
 
+
 def descubrirProductoras(catalog, productora):
     t1_start = process_time() #tiempo inicial
     info = model.descubrirProductoras(catalog, productora)

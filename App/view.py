@@ -38,10 +38,10 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-fileD = 'Data\\AllMoviesDetailsCleaned.csv'
-fileC = 'Data\\AllMoviesCastingRaw.csv'
-#fileD = 'Data\\SmallMoviesDetailsCleaned.csv'
-#fileC = 'Data\\MoviesCastingRaw-small.csv'
+#fileD = 'Data\\AllMoviesDetailsCleaned.csv'
+#fileC = 'Data\\AllMoviesCastingRaw.csv'
+fileD = 'Data\\SmallMoviesDetailsCleaned.csv'
+fileC = 'Data\\MoviesCastingRaw-small.csv'
 
 
 # ___________________________________________________
