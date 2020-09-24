@@ -35,11 +35,24 @@ operación seleccionada.
 """
 
 # ___________________________________________________
+# Bienvenido a Explorando la magia del cine recargado
+# Integrantes: 
+# Federico Wiesner
+# William Mendez
+# Valeria Marin 
+# ___________________________________________________
+
+# ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
 
-fileD = 'Data\\AllMoviesDetailsCleaned.csv'
-fileC = 'Data\\AllMoviesCastingRaw.csv'
+# Archivos grandes 
+# fileD = 'Data\\AllMoviesDetailsCleaned.csv'
+# fileC = 'Data\\AllMoviesCastingRaw.csv'
+# fileD = 'Data/theMoviesdb/AllMoviesDetailsCleaned.csv'
+# fileC = 'Data/theMoviesdb/AllMoviesCastingRaw.csv'
+
+# Archivos pequeños
 # fileD = 'Data/theMoviesdb/SmallMoviesDetailsCleaned.csv'
 # fileC = 'Data/theMoviesdb/MoviesCastingRaw-small.csv'
 # fileD = 'Data\\theMoviesdb\\short.csv'
@@ -86,6 +99,7 @@ def printDirector(director, info):
 
 def printActor(actor, info):
     print("-"*35)
+
     if info:
         peliculas = info['peliculas']
         size = info['size']
@@ -96,7 +110,8 @@ def printActor(actor, info):
             print('-' + lt.getElement(peliculas, i))
         print('\nTotal participaciones:', size)
         print('Promedio de las películas:', prom)
-        print('El director con quien más a colaborado es:', director)
+        print('El director con quien más ha colaborado es:'+ director[0])
+        print('Ha colaborado '+ str(director[1]) +' veces con este director')
     else:
         print('No se encontró el actor')
     print("-"*35)
