@@ -112,7 +112,7 @@ def printGenero(genero, info):
     print("-"*35)
     peliculas = info['peliculas']
     size = info['size']
-    votos = info['cantVotos']
+    votos = info['promedio']
     if info:
         print('Películas clasificadas como:', genero)
         for i in range(1, lt.size(peliculas)+1):
