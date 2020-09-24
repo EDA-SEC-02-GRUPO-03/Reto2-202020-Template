@@ -48,8 +48,8 @@ operación seleccionada.
 # ___________________________________________________
 
 # Archivos grandes 
- fileD = 'Data\\AllMoviesDetailsCleaned.csv'
- fileC = 'Data\\AllMoviesCastingRaw.csv'
+fileD = 'Data\\AllMoviesDetailsCleaned.csv'
+fileC = 'Data\\AllMoviesCastingRaw.csv'
 # fileD = 'Data/theMoviesdb/AllMoviesDetailsCleaned.csv'
 # fileC = 'Data/theMoviesdb/AllMoviesCastingRaw.csv'
 
