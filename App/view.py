@@ -35,6 +35,14 @@ operación seleccionada.
 """
 
 # ___________________________________________________
+# Bienvenido a Explorando la magia del cine recargado
+# Integrantes: 
+# Federico Wiesner
+# William Mendez
+# Valeria Marin 
+# ___________________________________________________
+
+# ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
 
