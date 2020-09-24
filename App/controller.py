@@ -131,7 +131,7 @@ def loadCasting(catalog, fileC, sep=';'):
                 pass
             else:
                 model.addActor(catalog, movie, 5)
-    t1_stop = process_time() #tiempo final
+    t1_stop = process_time()  # tiempo final
     print("Tiempo de ejecución ", t1_stop-t1_start, " segundos")
 
 
