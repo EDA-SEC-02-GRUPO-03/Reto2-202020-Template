@@ -112,7 +112,7 @@ def printGenero(genero, info):
         for i in range(1, lt.size(info['peliculas'])+1):
             print('-'+ lt.getElement(info['peliculas'], i))
         print('\nSe encontraron '+ str(info['size']) + ' películas asociadas a este género.')
-        print('El promedio de votación para este género es de:', info['promedio'])
+        print('El promedio de votación para este género es de:', info['cantVotos'])
     else:
         print('No se encontró el género')
     print("-"*35)

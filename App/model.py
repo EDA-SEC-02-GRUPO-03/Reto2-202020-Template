@@ -171,7 +171,7 @@ def addGenero(catalog, pelicula, genero):
         mp.put(generos, genero, genre)
 
     lt.addLast(genre["peliculas"], pelicula["title"])
-    genre["cantVotos"] += int(pelicula["vote_count"])
+    genre["cantVotos"] += float(pelicula["vote_count"])
     genre["size"] += 1
     genre["promedio"] = round(genre["cantVotos"]/genre["size"], 2)
 
