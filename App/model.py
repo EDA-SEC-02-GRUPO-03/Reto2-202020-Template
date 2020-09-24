@@ -26,7 +26,7 @@ from time import process_time
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
-from time import process_time 
+from time import process_time
 assert config
 
 """
@@ -80,8 +80,8 @@ def newCatalog():
     return catalog
 
 def newProductora(name):
-    prod = {'name': "", 
-            "peliculas": None,  
+    prod = {'name': "",
+            "peliculas": None,
             "calificacion": 0.0,
             "promedio": 0.0,
             "size": 0}
@@ -90,8 +90,8 @@ def newProductora(name):
     return prod
 
 def newDirector(name):
-    direct = {'name': "", 
-            "peliculas": None,  
+    direct = {'name': "",
+            "peliculas": None,
             "calificacion": 0.0,
             "promedio": 0.0,
             "size": 0}
@@ -100,8 +100,8 @@ def newDirector(name):
     return direct
 
 def newActor(name):
-    actor = {'name': "", 
-            "peliculas": None,  
+    actor = {'name': "",
+            "peliculas": None,
             "calificacion": 0.0,
             "promedio": 0.0,
             "size": 0,
@@ -115,7 +115,7 @@ def newGenero(name):
     genero = {'name': '',
               'numPeliculas': 0,
               'peliculas': None,
-              "promedio": 0.0,
+              "promedio": 0,
               "size": 0,
               'cantVotos': 0}
     genero['name'] = name
@@ -159,21 +159,22 @@ def addProductora(catalog, pelicula):
     prod["size"] += 1
     prod["promedio"] = round(prod["calificacion"] / prod["size"], 2)
 
+
 def addGenero(catalog, pelicula, genero):
     generos = catalog["generos"] # Guarda map de géneros llamándolo del catálogo
     existeGenero = mp.contains(generos, genero) # Pregunta si el género dado por parámetro existe ya en el map
 
     if existeGenero:
-        entry = mp.get(generos, genero) 
+        entry = mp.get(generos, genero)
         genre = me.getValue(entry)
-    else: 
+    else:
         genre = newGenero(genero)
         mp.put(generos, genero, genre)
 
     lt.addLast(genre["peliculas"], pelicula["title"])
     genre["cantVotos"] += float(pelicula["vote_count"])
     genre["size"] += 1
-    genre["promedio"] = round(genre["cantVotos"]/genre["size"], 2)
+    genre["promedio"] = round(genre["cantVotos"]/genre["size"])
 
 # ==============================
 # Funciones de consulta
@@ -205,7 +206,7 @@ def entenderGenero(catalog, genero):
     if genre:
         info = me.getValue(genre)
         return info
-    else: 
+    else:
         return None
 
 

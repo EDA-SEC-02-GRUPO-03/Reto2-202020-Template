@@ -70,7 +70,7 @@ def printProductora(productora, info):
 
 def printDirector(director, info):
     print("-"*35)
-    if info: 
+    if info:
         peliculas = info['peliculas']
         size = info['size']
         prom = info['promedio']
@@ -85,7 +85,7 @@ def printDirector(director, info):
 
 def printActor(actor, info):
     print("-"*35)
-    if info: 
+    if info:
         peliculas = info['peliculas']
         size = info['size']
         prom = info['promedio']
@@ -101,25 +101,26 @@ def printActor(actor, info):
     print("-"*35)
 
 def printGenero(genero, info):
-    """ 
+    """
     El req 4 pide:  - La lista de todas las películas asociadas
                     - Total de películas
                     - Prom de votación del género
     """
     print("-"*35)
-    if info: 
+    if info:
         print(genero.upper()+"\n")
         for i in range(1, lt.size(info['peliculas'])+1):
             print('-'+ lt.getElement(info['peliculas'], i))
         print('\nSe encontraron '+ str(info['size']) + ' películas asociadas a este género.')
-        print('El promedio de votación para este género es de:', info['cantVotos'])
+        print('El promedio de votación para este género es de:', info['promedio'])
     else:
         print('No se encontró el género')
     print("-"*35)
 
+
 def printPais(pais, info):
     print("-"*35)
-    if info: 
+    if info:
         print('Películas producidas en:', pais)
         for i in range(1, lt.size(info)):
             # Pendiente hasta definir como va a ser el retorno
