@@ -267,7 +267,6 @@ def addActor(catalog, pelicula, n):
         if not bo:
             lt.addLast(act['directores'], [pelicula['director_name'], 1])
 
-    print (act)
 
 
 # ==============================

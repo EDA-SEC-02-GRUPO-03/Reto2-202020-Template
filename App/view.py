@@ -19,7 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
-from DISClib.ADT import map as mp
 import csv
 import sys
 import config
@@ -27,7 +26,7 @@ from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
-
+from DISClib.ADT import map as mp
 """
 La vista se encarga de la interacción con el usuario.
 Presenta el menu de opciones y por cada seleccion
@@ -39,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-fileD = 'Data\\theMoviesdb\\AllMoviesDetailsCleaned.csv'
-fileC = 'Data\\theMoviesdb\\AllMoviesCastingRaw.csv'
+fileD = 'Data\\AllMoviesDetailsCleaned.csv'
+fileC = 'Data\\AllMoviesCastingRaw.csv'
 # fileD = 'Data/theMoviesdb/SmallMoviesDetailsCleaned.csv'
 # fileC = 'Data/theMoviesdb/MoviesCastingRaw-small.csv'
 # fileD = 'Data\\theMoviesdb\\short.csv'
