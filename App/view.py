@@ -38,10 +38,10 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-fileD = 'Data\\AllMoviesDetailsCleaned.csv'
-fileC = 'Data\\AllMoviesCastingRaw.csv'
-# fileD = 'Data/theMoviesdb/SmallMoviesDetailsCleaned.csv'
-# fileC = 'Data/theMoviesdb/MoviesCastingRaw-small.csv'
+# fileD = 'Data\\AllMoviesDetailsCleaned.csv'
+# fileC = 'Data\\AllMoviesCastingRaw.csv'
+fileD = 'Data/theMoviesdb/SmallMoviesDetailsCleaned.csv'
+fileC = 'Data/theMoviesdb/MoviesCastingRaw-small.csv'
 # fileD = 'Data\\theMoviesdb\\short.csv'
 # fileC = 'Data\\theMoviesdb\\shortcasting.csv'
 
@@ -97,8 +97,8 @@ def printActor(actor, info):
             print('-' + lt.getElement(peliculas, i))
         print('\nTotal participaciones:', size)
         print('Promedio de las películas:', prom)
-        print('El director con quien más ha colaborado es:', director[0])
-        print('Ha colaborado 'director[1]' veces con este director')
+        print('El director con quien más ha colaborado es:'+ director[0])
+        print('Ha colaborado '+ str(director[1]) +' veces con este director')
     else:
         print('No se encontró el actor')
     print("-"*35)
