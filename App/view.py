@@ -36,6 +36,7 @@ operación seleccionada.
 
 # ___________________________________________________
 # Bienvenido a Explorando la magia del cine recargado
+# ___________________________________________________
 # Integrantes: 
 # Federico Wiesner
 # William Mendez
@@ -47,8 +48,8 @@ operación seleccionada.
 # ___________________________________________________
 
 # Archivos grandes 
-# fileD = 'Data\\AllMoviesDetailsCleaned.csv'
-# fileC = 'Data\\AllMoviesCastingRaw.csv'
+ fileD = 'Data\\AllMoviesDetailsCleaned.csv'
+ fileC = 'Data\\AllMoviesCastingRaw.csv'
 # fileD = 'Data/theMoviesdb/AllMoviesDetailsCleaned.csv'
 # fileC = 'Data/theMoviesdb/AllMoviesCastingRaw.csv'
 
