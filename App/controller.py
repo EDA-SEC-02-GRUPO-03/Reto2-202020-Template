@@ -81,7 +81,7 @@ def loadDetails(catalog, fileD, sep = ';'):
             if len(generos) == 0:
                 pass 
             for genre in generos:
-                genre.lower()
+                genre = genre.lower()
                 model.addGenero(catalog, movie, genre)
         
     t1_stop = process_time() #tiempo final

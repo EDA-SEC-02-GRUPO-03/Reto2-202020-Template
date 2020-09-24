@@ -26,6 +26,7 @@ from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
+from DISClib.ADT import map as mp
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -100,13 +101,18 @@ def printActor(actor, info):
     print("-"*35)
 
 def printGenero(genero, info):
+    """ 
+    El req 4 pide:  - La lista de todas las películas asociadas
+                    - Total de películas
+                    - Prom de votación del género
+    """
     print("-"*35)
     if info: 
-        print('Películas clasificadas como:', genero)
-        for i in range(1, lt.size(info[0])):
-            print('-'+ lt.getElement(info[0], i))
-        print('\nTotal películas:', info[1])
-        print('Promedio de cantidad de votos:', info[2])
+        print(genero.upper()+"\n")
+        for i in range(1, lt.size(info['peliculas'])+1):
+            print('-'+ lt.getElement(info['peliculas'], i))
+        print('\nSe encontraron '+ str(info['size']) + ' películas asociadas a este género.')
+        print('El promedio de votación para este género es de:', info['promedio'])
     else:
         print('No se encontró el género')
     print("-"*35)
